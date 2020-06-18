@@ -20,5 +20,5 @@ use Illuminate\Support\Facades\Route;
 
 //Users
 Route::prefix('/')->group(function(){
-    Route::post('/login','LoginController@login');
+    Route::post('/login','api\LoginController@login');
 });

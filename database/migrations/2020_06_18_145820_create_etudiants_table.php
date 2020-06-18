@@ -22,8 +22,8 @@ class CreateEtudiantsTable extends Migration
             $table->string('SEXE');
             $table->string('NATIONALITE');
             $table->string('TELEPHONE');
-            $table->string('SKYPE');
-            $table->string('LINKEDIN');
+            $table->string('SKYPE')->nullable();
+            $table->string('LINKEDIN')->nullable();
             $table->string('DIPLOME');
             $table->string('SPECIALITE');
             $table->string('CYCLE');

@@ -15,7 +15,6 @@ class CreateEtudiantsMp2Table extends Migration
     {
         Schema::create('etudiants_mp2', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
         });
     }
 

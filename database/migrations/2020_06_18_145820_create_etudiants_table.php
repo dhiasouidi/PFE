@@ -29,7 +29,6 @@ class CreateEtudiantsTable extends Migration
             $table->string('SPECIALITE');
             $table->string('CYCLE');
             $table->string('NIVEAU');
-            $table->timestamps();
         });
     }
 

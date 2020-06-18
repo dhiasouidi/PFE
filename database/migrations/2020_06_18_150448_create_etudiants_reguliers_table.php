@@ -15,7 +15,6 @@ class CreateEtudiantsReguliersTable extends Migration
     {
         Schema::create('etudiants_reguliers', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
         });
     }
 

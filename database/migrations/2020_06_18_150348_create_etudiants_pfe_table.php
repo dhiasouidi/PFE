@@ -15,7 +15,6 @@ class CreateEtudiantsPfeTable extends Migration
     {
         Schema::create('etudiants_pfe', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
         });
     }
 

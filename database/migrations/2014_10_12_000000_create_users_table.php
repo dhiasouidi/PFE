@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
 
             $table->string('login')->primary();
             $table->string('password');
+            $table->string('email');
             $table->string('userable_id');
             $table->string('userable_type');
         });

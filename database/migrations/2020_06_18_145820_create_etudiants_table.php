@@ -22,7 +22,6 @@ class CreateEtudiantsTable extends Migration
             $table->string('SEXE');
             $table->string('NATIONALITE');
             $table->string('TELEPHONE');
-            $table->string('EMAIL');
             $table->string('SKYPE');
             $table->string('LINKEDIN');
             $table->string('DIPLOME');

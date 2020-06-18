@@ -14,7 +14,21 @@ class CreateEtudiantsTable extends Migration
     public function up()
     {
         Schema::create('etudiants', function (Blueprint $table) {
-            $table->id();
+
+            $table->string('CIN_PASSEPORT',50)->primary();
+            $table->string('NOM');
+            $table->string('PRENOM');
+            $table->date('DATE_NAISSAINCE');
+            $table->string('SEXE');
+            $table->string('NATIONALITE');
+            $table->string('TELEPHONE');
+            $table->string('EMAIL');
+            $table->string('SKYPE');
+            $table->string('LINKEDIN');
+            $table->string('DIPLOME');
+            $table->string('SPECIALITE');
+            $table->string('CYCLE');
+            $table->string('NIVEAU');
             $table->timestamps();
         });
     }

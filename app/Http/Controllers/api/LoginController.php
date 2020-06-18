@@ -12,18 +12,17 @@ class LoginController extends Controller
     public function login (Request $request)
     {
         $login = $request->validate([
-            'login'=>'required|string',
+            'login' => 'required|string',
             'password'=>'required|string'
         ]);
 
-        if(!Auth::attempt($login))
-        {
-            return response(['message'=>'Invalid Login Credentials']);
+        if(!Auth::attempt($login)){
+            return response(['message'=>'Invalid login credentials']);
         }
 
-        $auth_user = Auth::user();
-        $user = User::find($auth_user->id);
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
         $accesstoken = $user->createToken('access_token')->accessToken;
-        return response(['user'=>Auth::user()->userable->NOM , 'access_token'=>$accesstoken]);
+        return response(['user'=>$authenticated_user , 'access_token'=>$accesstoken]);
     }
 }

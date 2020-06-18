@@ -14,7 +14,6 @@ class LoginController extends Controller
         try{
             if(Auth::attempt($request->only('login','password'))){
 
-
                 $authenticated_user = Auth::user();
                 $user = User::find($authenticated_user->login);
                 $accesstoken = $user->createToken('access_token')->accessToken;

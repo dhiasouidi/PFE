@@ -21,4 +21,5 @@ use Illuminate\Support\Facades\Route;
 //Users
 Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
+    Route::post('/forgot','ForgotController@forgot');
 });

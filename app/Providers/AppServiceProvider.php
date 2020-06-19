@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             'etudiantmp2' => \App\EtudiantMP2::class,
             'etudiantmr2' => \App\EtudiantMR2::class,
             'etudiantregulier' => \App\EtudiantRegulier::class,
+            'admin' => \App\Admin::class,
         ]);
     }
 }

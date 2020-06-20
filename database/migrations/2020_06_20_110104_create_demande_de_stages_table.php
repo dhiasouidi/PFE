@@ -14,7 +14,13 @@ class CreateDemandeDeStagesTable extends Migration
     public function up()
     {
         Schema::create('demande_de_stages', function (Blueprint $table) {
-            $table->id();
+
+            $table->bigIncrements('ID_DEMANDE');
+            $table->string('ORGANISME_DEMANDE');
+            $table->string('TYPE_DEMANDE');
+            $table->string('ETAT_DEMANDE')->default('NA');
+            
+
             $table->timestamps();
         });
     }

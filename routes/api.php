@@ -26,5 +26,7 @@ Route::prefix('/')->group(function(){
     Route::middleware('auth:api')->post('/demandesave','DemandeDeStageController@create');
     Route::middleware('auth:api')->get('/demandeall','DemandeDeStageController@index');
     Route::middleware('auth:api')->get('/demande/{id}','DemandeDeStageController@show');
+    Route::middleware('auth:api')->put('/demande/edit/{id}','DemandeDeStageController@edit');
+    Route::middleware('auth:api')->delete('/demande/delete/{id}','DemandeDeStageController@destroy');
 
 });

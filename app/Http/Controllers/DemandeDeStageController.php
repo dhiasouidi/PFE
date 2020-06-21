@@ -92,9 +92,10 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function edit(DemandeDeStage $demandeDeStage)
+    public function edit(Request $request, DemandeDeStage $id)
     {
-        //
+        $id->update($request->all());
+        return response()->json($id,200);
     }
 
     /**
@@ -115,8 +116,11 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DemandeDeStage $demandeDeStage)
+    public function destroy(Request $request ,DemandeDeStage $id)
     {
-        //
+
+        $id->delete();
+
+        return response()->json(null,204);
     }
 }

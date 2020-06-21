@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+
 use App\DemandeDeStage;
 use App\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
+use Illuminate\Support\Facades\Validator;
 
 
 class DemandeDeStageController extends Controller
@@ -29,10 +30,16 @@ class DemandeDeStageController extends Controller
      */
     public function create(Request $infos)
     {
-        $infos->validate
-        ([
-        'ORGANISME_DEMANDE' => 'required|string|max:255'
-        ]);
+        $rules= [
+            'ORGANISME_DEMANDE' =>'required|string|min:2'
+        ];
+
+        $validator = Validator::make($infos->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
 
         $authenticated_user = Auth::user();
 
@@ -83,6 +90,11 @@ class DemandeDeStageController extends Controller
      */
     public function show($id)
     {
+        $demande = DemandeDeStage::find($id);
+        if(is_null($demande))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
         return response()->json(DemandeDeStage::find($id));
     }
 
@@ -92,10 +104,9 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, DemandeDeStage $id)
+    public function edit()
     {
-        $id->update($request->all());
-        return response()->json($id,200);
+
     }
 
     /**
@@ -105,9 +116,15 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DemandeDeStage $demandeDeStage)
+    public function update(Request $request, $id)
     {
-        //
+        $demande = DemandeDeStage::find($id);
+        if(is_null($demande))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $id->update($request->all());
+        return response()->json($id,200);
     }
 
     /**
@@ -116,8 +133,13 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request ,DemandeDeStage $id)
+    public function destroy(Request $request , $id)
     {
+        $demande = DemandeDeStage::find($id);
+        if(is_null($demande))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
 
         $id->delete();
 

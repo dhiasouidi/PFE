@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DemandeDeStage;
+use App\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
+
 
 
 class DemandeDeStageController extends Controller
@@ -31,26 +34,32 @@ class DemandeDeStageController extends Controller
         'ORGANISME_DEMANDE' => 'required|string|max:255'
         ]);
 
-        $demande= new DemandeDeStage;
+        $authenticated_user = Auth::user();
 
-        $demande->ORGANISME_DEMANDE=request('ORGANISME_DEMANDE');
+        $user = User::find($authenticated_user->login);
 
-        $demande->CIN_DEMANDE=Auth::user()->userable->CIN_PASSEPORT;
+        $etudiant = Etudiant::find($user->login);
 
-        $type_etudiant= Auth::user()->userable->etudiantable_type;
+        $type_etudiant= $etudiant->etudiantable_type;
 
         switch ($type_etudiant) {
             case "etudiantpfe":
-                $demande->TYPE_DEMANDE="pfe";
+                $TYPE_DEMANDE="pfe";
               break;
               case "etudiantregulier":
-                $demande->TYPE_DEMANDE="ete";
+                $TYPE_DEMANDE="ete";
             break;
             case "etudiantmp2":
-                $demande->TYPE_DEMANDE="mpro";
+                $TYPE_DEMANDE="mpro";
             break;
         }
-            $demande_stage=DemandeDeStage::create($demande);
+
+            $demande_stage=DemandeDeStage::create([
+                'CIN_DEMANDE' => $etudiant->CIN_PASSEPORT,
+                'ORGANISME_DEMANDE' => request('ORGANISME_DEMANDE'),
+                'TYPE_DEMANDE' =>  $TYPE_DEMANDE,
+            ]);
+
 
             return response()->json($demande_stage,201);
     }

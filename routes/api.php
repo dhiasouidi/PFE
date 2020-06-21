@@ -22,5 +22,5 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
     Route::post('/forgot','ForgotController@forgot');
-    Route::post('/demandesave','DemandeDeStageController@create');
+    Route::middleware('auth:api')->post('/demandesave','DemandeDeStageController@create');
 });

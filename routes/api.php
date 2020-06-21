@@ -22,5 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
     Route::post('/forgot','ForgotController@forgot');
+    //Loggedin Users
     Route::middleware('auth:api')->post('/demandesave','DemandeDeStageController@create');
+    Route::middleware('auth:api')->get('/demandeall','DemandeDeStageController@index');
+    Route::middleware('auth:api')->get('/demande/{id}','DemandeDeStageController@show');
+
 });

@@ -19,7 +19,7 @@ class DemandeDeStageController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(DemandeDeStage::get(),200);
     }
 
     /**
@@ -81,9 +81,9 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function show(DemandeDeStage $demandeDeStage)
+    public function show($id)
     {
-        //
+        return response()->json(DemandeDeStage::find($id));
     }
 
     /**

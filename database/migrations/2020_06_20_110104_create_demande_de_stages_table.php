@@ -19,7 +19,9 @@ class CreateDemandeDeStagesTable extends Migration
             $table->string('ORGANISME_DEMANDE');
             $table->string('TYPE_DEMANDE');
             $table->string('ETAT_DEMANDE')->default('NA');
-            
+            $table->bigInteger('CIN_DEMANDE');
+
+
 
             $table->timestamps();
         });

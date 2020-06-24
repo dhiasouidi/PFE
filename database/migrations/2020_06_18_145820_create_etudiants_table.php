@@ -28,8 +28,7 @@ class CreateEtudiantsTable extends Migration
             $table->string('SPECIALITE');
             $table->string('CYCLE');
             $table->string('NIVEAU');
-            $table->string('etudiantable_id');
-            $table->string('etudiantable_type');
+            $table->string('etudian_type');
         });
     }
 

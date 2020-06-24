@@ -47,7 +47,7 @@ class DemandeDeStageController extends Controller
 
         $etudiant = Etudiant::find($user->login);
 
-        $type_etudiant= $etudiant->etudiantable_type;
+        $type_etudiant= $etudiant->etudiant_type;
 
         switch ($type_etudiant) {
             case "etudiantpfe":

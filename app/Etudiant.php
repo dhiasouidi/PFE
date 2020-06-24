@@ -17,8 +17,4 @@ class Etudiant extends Model
         return $this->morphOne('App\User', 'userable');
     }
 
-    public function etudiantable()
-    {
-        return $this->morphTo();
-    }
 }

@@ -34,8 +34,5 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
-    public function demandes()
-    {
-        return $this->hasMany('App\DemandeDeStage');
-    }
+
 }

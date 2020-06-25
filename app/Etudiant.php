@@ -17,4 +17,11 @@ class Etudiant extends Model
         return $this->morphOne('App\User', 'userable');
     }
 
+    public function demandes()
+    {
+        return $this->hasMany('App\DemandeDeStage');
+    }
+
+
+
 }

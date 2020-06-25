@@ -25,6 +25,7 @@ class CreateDemandeDeStagesTable extends Migration
             $table->string('ETUDIANT_DEMANDE');
 
             $table->foreign('STAGE_ID')->references('ID_STAGE')->on('stages')->onDelete('cascade');
+            $table->foreign('ETUDIANT_DEMANDE')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
 
 
 

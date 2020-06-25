@@ -25,10 +25,14 @@ class Etudiant extends Model
 
     public function binome()
     {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
         return $this->belongsTo('App\Etudiant', 'binome_id', 'CIN_PASSEPORT')
+                    ->where('binome_id',$etudiant->CIN_PASSEPORT)
                     ->where('statut_binome','1');
     }
-
 
     function binome_invited()
     {
@@ -38,7 +42,5 @@ class Etudiant extends Model
     function binomes_invited_by()
     {
         return $this->belongsTo('App\Binome', 'etudiant_id', 'CIN_PASSEPORT');    }
-
-
 
 }

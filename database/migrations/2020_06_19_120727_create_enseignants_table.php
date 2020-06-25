@@ -22,7 +22,6 @@ class CreateEnseignantsTable extends Migration
             $table->string('ETABLISSEMENT');
             $table->string('UNIVERSITE');
             $table->string('GRADE');
-            $table->string('EMAIL');
             $table->string('TELEPHONE');
 
         });

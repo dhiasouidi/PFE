@@ -11,4 +11,9 @@ class DemandeDeStage extends Model
 
     protected $fillable = ['ORGANISME_DEMANDE','TYPE_DEMANDE','ETAT_DEMANDE', 'CIN_DEMANDE'];
 
+    public function etudiant()
+    {
+        return $this->belongsTo('App\Etudiant' , 'ETUDIANT_DEMANDE', 'CIN_PASSEPORT');
+    }
+
 }

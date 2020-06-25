@@ -28,6 +28,9 @@ Route::prefix('/')->group(function(){
         //Demande de Stage CRUD
         Route::post('/demandesave','DemandeDeStageController@create');
         Route::get('/binome','EtudiantController@index');
+        Route::post('/addbinome','EtudiantController@addbinome');
+
+
         Route::get('/demandeall','DemandeDeStageController@index');
         Route::get('/demande/{id}','DemandeDeStageController@show');
         Route::put('/demande/update/{id}','DemandeDeStageController@update');

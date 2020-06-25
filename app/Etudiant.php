@@ -22,6 +22,12 @@ class Etudiant extends Model
         return $this->hasMany('App\DemandeDeStage');
     }
 
+    public function binome()
+    {
+        return $this->belongsTo('App\Binome', 'etudiant_id', 'binome_id')
+                    ->wherePivot('accepted', '=', 1);
+    }
+
 
 
 }

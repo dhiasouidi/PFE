@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Admin extends Model
 {
-    protected $primaryKey= 'ID_ADMIN';
+    protected $primaryKey= 'PSEUDO';
     public $incrementing = false;
 
     protected $guarded=[];

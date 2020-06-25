@@ -62,7 +62,7 @@ class DemandeDeStageController extends Controller
         }
 
             $demande_stage=DemandeDeStage::create([
-                'CIN_DEMANDE' => $etudiant->CIN_PASSEPORT,
+                'ETUDIANT_DEMANDE' => $etudiant->CIN_PASSEPORT,
                 'ORGANISME_DEMANDE' => request('ORGANISME_DEMANDE'),
                 'TYPE_DEMANDE' =>  $TYPE_DEMANDE,
             ]);

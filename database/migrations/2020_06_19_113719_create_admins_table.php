@@ -18,7 +18,7 @@ class CreateAdminsTable extends Migration
             $table->string('PSEUDO',50)->primary();
             $table->string('NOM');
             $table->string('PRENOM');
-            $table->string('ROLE');
+            $table->string('FONCTION');
 
         });
     }

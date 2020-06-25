@@ -6,7 +6,7 @@ use App\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-
+use Illuminate\Support\Facades\Validator;
 
 class EtudiantController extends Controller
 {
@@ -15,19 +15,6 @@ class EtudiantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $authenticated_user = Auth::user();
-        $user = User::find($authenticated_user->login);
-        $etudiant = Etudiant::find($user->login);
-        // $data = [
-        //     'user'  => Auth::user(),
-        //     'type'  => get_class(Auth::user()->userable->NOM)
-        // ];
-
-        return response($etudiant->binome_invited);
-
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -92,5 +79,88 @@ class EtudiantController extends Controller
     public function destroy(Etudiant $etudiant)
     {
         //
+    }
+
+    public function binome()
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+        return response($etudiant->binome_invited);
+    }
+
+    public function currentetudiant()
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+        return $etudiant;
+    }
+
+
+    public function addbinome(Request $binome )
+    {
+        $etudiant = $this->currentetudiant();
+
+        $rules= [
+            'binome_id' =>'required|string|min:2'
+        ];
+
+        $validator = Validator::make($binome->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+        if($etudiant->statut_binome = '0')
+        {
+            $etudiant->fill( $binome->all() )->save();
+            return response()->json($binome,200);
+        }
+        return response()->json(['message'=>'You can\'t send request,You already have a partner'],401 );
+    }
+
+    //ADMIN ONLY
+    public function deletebinome()
+    {
+        $etudiant = $this->currentetudiant();
+
+        if($etudiant->statut_binome == '0')
+        {
+            $etudiant->binome_id=null;
+            $etudiant->statut_binome='0';
+            $etudiant->save();
+
+            return response()->json(null,204);
+        }
+
+    }
+
+    public function acceptbinome(Request $binome )
+    {
+        $etudiant = $this->currentetudiant();
+
+        $binome_objet = Etudiant::find($binome->CIN_PASSEPORT);
+
+        if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT)
+        {
+            $binome_objet->statut_binome='1';
+            $etudiant->binome_id=$binome->CIN_PASSEPORT;
+            $etudiant->statut_binome='1';
+            $etudiant->save();
+            $binome_objet->save();
+            return response()->json([$etudiant,$binome_objet],200);
+        }
+
+    }
+
+    public function refusebinome(Request $binome )
+    {
+        $etudiant = Etudiant::find($binome->CIN_PASSEPORT);
+
+        $etudiant->statut_binome='2';
+
+        $etudiant->fill( $binome->all() )->save();
+        return response()->json($binome,200);
     }
 }

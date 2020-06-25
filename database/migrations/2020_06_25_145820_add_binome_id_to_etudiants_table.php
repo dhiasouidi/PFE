@@ -16,7 +16,7 @@ class AddBinomeIdToEtudiantsTable extends Migration
         Schema::table('etudiants', function (Blueprint $table) {
 
             $table->string('binome_id')->nullable();
-            $table->string('statut_binome')->nullable();
+            $table->string('statut_binome')->nullable()->default('0');
             $table->foreign('binome_id')->references('CIN_PASSEPORT')->on('etudiants');
 
         });

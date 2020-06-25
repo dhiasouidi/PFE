@@ -27,8 +27,13 @@ Route::prefix('/')->group(function(){
     Route::group(['middleware' => 'auth:api'], function () {
         //Demande de Stage CRUD
         Route::post('/demandesave','DemandeDeStageController@create');
-        Route::get('/binome','EtudiantController@index');
+
+        Route::get('/binome','EtudiantController@binome');
         Route::post('/addbinome','EtudiantController@addbinome');
+        Route::post('/acceptbinome','EtudiantController@acceptbinome');
+        Route::post('/deletebinome','EtudiantController@deletebinome');
+        Route::post('/acceptbinome','EtudiantController@acceptbinome');
+        Route::post('/refusebinome','EtudiantController@refusebinome');
 
 
         Route::get('/demandeall','DemandeDeStageController@index');

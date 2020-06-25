@@ -19,26 +19,23 @@ class Etudiant extends Model
 
     public function demandes()
     {
-        return $this->hasMany('App\DemandeDeStage');
+        return $this->hasMany('App\DemandeDeStage' ,'ETUDIANT_DEMANDE', 'CIN_PASSEPORT');
     }
+
 
     function binomes_invited()
     {
-        return $this->belongsTo('App\Binome', 'etudiant_id', 'binome_id')
-        ->withPivot('accepted'); // or to fetch accepted value
-    }
+        return $this->belongsTo('App\Binome', 'CIN_PASSEPORT', 'etudiant_id');    }
 
     function binomes_invited_by()
     {
-        return $this->belongsTo('App\Binome', 'binome_id', 'etudiant_id')
-        ->withPivot('accepted'); // or to fetch accepted value
-    }
+        return $this->belongsTo('App\Binome', 'etudiant_id', 'CIN_PASSEPORT');    }
 
     public function binome()
     {
-        return $this->belongsTo('App\Binome', 'etudiant_id', 'binome_id')
-                    ->wherePivot('accepted', '=', 0);
-    }
+        return $this->belongsTo('App\Binome', 'CIN_PASSEPORT', 'etudiant_id')
+                    ->where('accepted', '1');
+        }
 
 
 }

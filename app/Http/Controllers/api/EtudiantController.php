@@ -20,14 +20,12 @@ class EtudiantController extends Controller
         $authenticated_user = Auth::user();
         $user = User::find($authenticated_user->login);
         $etudiant = Etudiant::find($user->login);
-
-        $etudiant->binome;
         // $data = [
         //     'user'  => Auth::user(),
         //     'type'  => get_class(Auth::user()->userable->NOM)
         // ];
 
-        return response($etudiant->binome(),201);
+        return response($etudiant->binome);
 
     }
     /**

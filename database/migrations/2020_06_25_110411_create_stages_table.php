@@ -14,9 +14,12 @@ class CreateStagesTable extends Migration
     public function up()
     {
         Schema::create('stages', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('ID_DEMANDE_AFF');
+            $table->bigIncrements('ID_STAGE');
+
+            $table->string('DEMANDE_ID');
+
+            $table->foreign('DEMANDE_ID')->references('ID_DEMANDE')->on('demande_de_stages')->onDelete('cascade');
+
         });
     }
 

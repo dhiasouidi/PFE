@@ -16,10 +16,16 @@ class CreateDemandeDeStagesTable extends Migration
         Schema::create('demande_de_stages', function (Blueprint $table) {
 
             $table->bigIncrements('ID_DEMANDE');
+
+            $table->string('STAGE_ID');
+
             $table->string('ORGANISME_DEMANDE');
             $table->string('TYPE_DEMANDE');
             $table->string('ETAT_DEMANDE')->default('NA');
             $table->string('ETUDIANT_DEMANDE');
+
+            $table->foreign('STAGE_ID')->references('ID_STAGE')->on('stages')->onDelete('cascade');
+
 
 
 

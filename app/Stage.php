@@ -8,6 +8,6 @@ class Stage extends Model
 {
     public function demande()
     {
-        return $this->belongsTo('App\DemandeDeStage', 'ID_DEMANDE_AFF', 'ID_DEMANDE');
+        return $this->hasOne('App\DemandeDeStage', 'DEMANDE_ID', 'ID_DEMANDE');
     }
 }

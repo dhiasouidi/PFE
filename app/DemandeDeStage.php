@@ -19,7 +19,7 @@ class DemandeDeStage extends Model
 
     public function stage()
     {
-        return $this->hasOne('App\Stage',  'ID_DEMANDE_AFF' , 'ID_DEMANDE');
+        return $this->belongsTo('App\Stage',  'ID_DEMANDE' , 'DEMANDE_ID');
     }
 
 }

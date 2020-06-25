@@ -9,7 +9,7 @@ class DemandeDeStage extends Model
     protected $primaryKey= 'ID_DEMANDE';
     protected $table = 'demande_de_stages';
 
-    protected $fillable = ['ORGANISME_DEMANDE','TYPE_DEMANDE','ETAT_DEMANDE', 'CIN_DEMANDE'];
+    protected $fillable = ['ORGANISME_DEMANDE','TYPE_DEMANDE','ETAT_DEMANDE', 'ETUDIANT_DEMANDE','STAGE_ID'];
 
 
     public function etudiant()

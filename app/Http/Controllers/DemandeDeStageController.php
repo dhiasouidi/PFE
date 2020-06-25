@@ -67,7 +67,6 @@ class DemandeDeStageController extends Controller
                 'TYPE_DEMANDE' =>  $TYPE_DEMANDE,
             ]);
 
-
             return response()->json($demande_stage,201);
     }
 

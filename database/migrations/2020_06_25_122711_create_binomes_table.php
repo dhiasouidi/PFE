@@ -19,8 +19,8 @@ class CreateBinomesTable extends Migration
             $table->string('binome_id');
             $table->string('accepted');
 
-            $table->foreign('binome_id')->references('id')->on('etudiants')->onDelete('cascade');
-            $table->foreign('etudiant_id')->references('id')->on('etudiants')->onDelete('cascade');
+            $table->foreign('binome_id')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
+            $table->foreign('etudiant_id')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
         });
     }
 

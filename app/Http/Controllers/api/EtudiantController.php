@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 
 class EtudiantController extends Controller
@@ -16,12 +17,18 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        $data = [
-            'user'  => Auth::user(),
-            'type'  => get_class(Auth::user()->userable->NOM)
-        ];
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
 
-        return view('profile', $data);
+        $etudiant->binome;
+        // $data = [
+        //     'user'  => Auth::user(),
+        //     'type'  => get_class(Auth::user()->userable->NOM)
+        // ];
+
+        return response($etudiant->binome(),201);
+
     }
     /**
      * Show the form for creating a new resource.

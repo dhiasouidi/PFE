@@ -27,6 +27,7 @@ Route::prefix('/')->group(function(){
     Route::group(['middleware' => 'auth:api'], function () {
         //Demande de Stage CRUD
         Route::post('/demandesave','DemandeDeStageController@create');
+        Route::get('/binome','EtudiantController@index');
         Route::get('/demandeall','DemandeDeStageController@index');
         Route::get('/demande/{id}','DemandeDeStageController@show');
         Route::put('/demande/update/{id}','DemandeDeStageController@update');

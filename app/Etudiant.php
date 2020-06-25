@@ -37,7 +37,7 @@ class Etudiant extends Model
     public function binome()
     {
         return $this->belongsTo('App\Binome', 'etudiant_id', 'binome_id')
-                    ->wherePivot('accepted', '=', 1);
+                    ->wherePivot('accepted', '=', 0);
     }
 
 

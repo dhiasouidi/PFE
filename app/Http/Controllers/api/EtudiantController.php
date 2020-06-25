@@ -25,7 +25,7 @@ class EtudiantController extends Controller
         //     'type'  => get_class(Auth::user()->userable->NOM)
         // ];
 
-        return response($etudiant->binome);
+        return response($etudiant->binome_invited);
 
     }
     /**

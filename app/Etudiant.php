@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Etudiant extends Model
 {
@@ -22,20 +23,22 @@ class Etudiant extends Model
         return $this->hasMany('App\DemandeDeStage' ,'ETUDIANT_DEMANDE', 'CIN_PASSEPORT');
     }
 
-
-    function binomes_invited()
+    public function binome()
     {
-        return $this->belongsTo('App\Binome', 'CIN_PASSEPORT', 'etudiant_id');    }
+        return $this->belongsTo('App\Etudiant', 'binome_id', 'CIN_PASSEPORT')
+                    ->where('statut_binome','1');
+    }
+
+
+    function binome_invited()
+    {
+        return $this->belongsTo('App\Etudiant', 'binome_id', 'CIN_PASSEPORT');
+    }
 
     function binomes_invited_by()
     {
         return $this->belongsTo('App\Binome', 'etudiant_id', 'CIN_PASSEPORT');    }
 
-    public function binome()
-    {
-        return $this->belongsTo('App\Binome', 'CIN_PASSEPORT', 'etudiant_id')
-                    ->where('accepted', '1');
-        }
 
 
 }

@@ -154,7 +154,6 @@ class EtudiantController extends Controller
             $binome_objet->statut_binome='1';
             $etudiant->binome_id  = $binome->CIN_PASSEPORT;
             $etudiant->statut_binome='1';
-            $etudiant->STAGE_ID=$binome_objet->STAGE_ID;
             $etudiant->save();
             $binome_objet->save();
             return response()->json([$etudiant,$binome_objet],200);

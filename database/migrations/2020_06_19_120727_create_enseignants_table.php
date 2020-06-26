@@ -18,11 +18,13 @@ class CreateEnseignantsTable extends Migration
             $table->string('ID_ENSEIGNANT',50)->primary();
             $table->string('NOM');
             $table->string('PRENOM');
-            $table->date('SPECIALITE');
+            $table->string('SPECIALITE');
             $table->string('ETABLISSEMENT');
             $table->string('UNIVERSITE');
             $table->string('GRADE');
             $table->string('TELEPHONE');
+            $table->string('EMAIL');
+            $table->timestamps();
 
         });
     }

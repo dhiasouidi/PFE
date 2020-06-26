@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email');
             $table->string('userable_id');
             $table->string('userable_type');
+            $table->timestamps();
         });
     }
 

@@ -26,21 +26,27 @@ Route::prefix('/')->group(function(){
     //Loggedin Users
     Route::group(['middleware' => 'auth:api'], function () {
         //Demande de Stage CRUD
-        Route::post('/demandesave','DemandeDeStageController@create');
 
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
+
         Route::get('/binome','EtudiantController@binome');
         Route::post('/addbinome','EtudiantController@addbinome');
-        Route::post('/acceptbinome','EtudiantController@acceptbinome');
         Route::post('/deletebinome','EtudiantController@deletebinome');
         Route::post('/acceptbinome','EtudiantController@acceptbinome');
         Route::post('/refusebinome','EtudiantController@refusebinome');
 
 
+        Route::post('/demandesave','DemandeDeStageController@create');
         Route::get('/demandeall','DemandeDeStageController@index');
         Route::get('/demande/{id}','DemandeDeStageController@show');
         Route::put('/demande/update/{id}','DemandeDeStageController@update');
         Route::delete('/demande/delete/{id}','DemandeDeStageController@destroy');
+
+
+        Route::post('/enseignantsave','EnseignantController@create');
+
+
+
     });
 
 });

@@ -24,7 +24,7 @@ class CreateSujetsTable extends Migration
             $table->string('ABSTRACT');
 
             $table->string('ENCADRANT');
-            $table->string('STATUT_ENCADRANT');
+            $table->string('STATUT_ENCADRANT')->default('0');
 
             $table->string('STRUCTURE_RECHERCHE');
 

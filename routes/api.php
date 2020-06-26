@@ -37,6 +37,7 @@ Route::prefix('/')->group(function(){
         Route::post('/acceptbinome','EtudiantController@acceptbinome');
         Route::post('/refusebinome','EtudiantController@refusebinome');
 
+        Route::post('/addencadrant','SujetController@addencadrant');
 
         Route::post('/demandesave','DemandeDeStageController@create');
         Route::get('/demandeall','DemandeDeStageController@index');

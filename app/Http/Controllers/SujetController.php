@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Etudiant;
 use App\Sujet;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class SujetController extends Controller
 {
@@ -67,9 +71,15 @@ class SujetController extends Controller
      * @param  \App\Sujet  $sujet
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sujet $sujet)
+    public function update(Request $request, $id)
     {
-        //
+        $sujet = Sujet::find($id);
+        if(is_null($sujet))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $sujet->update($request->all());
+        return response()->json($sujet,200);
     }
 
     /**
@@ -81,5 +91,31 @@ class SujetController extends Controller
     public function destroy(Sujet $sujet)
     {
         //
+    }
+
+    public function addencadrant(Request $encadrant)
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
+        $sujet= Sujet::find($etudiant->SUJET_ID);
+
+        $rules= [
+            'ENCADRANT' =>'required|string|min:2'
+        ];
+
+        $validator = Validator::make($encadrant->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+        $sujet->ENCADRANT = $encadrant->ENCADRANT;
+        $sujet->save();
+        return response()->json($sujet,200);
+
+        return response()->json(['message'=>'You can\'t send request'],401 );
     }
 }

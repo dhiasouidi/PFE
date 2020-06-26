@@ -154,14 +154,20 @@ class DemandeDeStageController extends Controller
             return response()->json(["message" => 'Record not found'],404);
         }
         if($demande->ETAT_DEMANDE = 'NA'){
+
             $demande->ETAT_DEMANDE= 'A';
 
             $stage = Stage::create([
                 'TYPE_STAGE' => $demande->TYPE_DEMANDE,
-                'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE ,
+                'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE,
             ]);
+
+            $etudiant = Etudiant::find($demande->ETUDIANT_DEMANDE);
+            $etudiant->STAGE_ID=$stage->ID_STAGE;
+
             $demande->save();
-            return response()->json([$demande,$stage],200);
+            $etudiant->save();
+            return response()->json([$etudiant,$demande,$stage],200);
         }
     }
 }

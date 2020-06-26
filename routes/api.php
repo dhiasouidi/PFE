@@ -30,6 +30,7 @@ Route::prefix('/')->group(function(){
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
+        Route::get('/affecteretudiant','EtudiantController@affecter');
 
         Route::get('/binome','EtudiantController@binome');
         Route::post('/addbinome','EtudiantController@addbinome');

@@ -27,9 +27,9 @@ class CreateStagesTable extends Migration
             $table->string('DATE_DEBUT')->nullable();
             $table->string('DATE_FIN')->nullable();
 
-            // $table->string('ETUDIANT_ID');
+            $table->string('ETUDIANT_ID');
 
-            // $table->foreign('ETUDIANT_ID')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
+            $table->foreign('ETUDIANT_ID')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
             $table->timestamps();
 
         });

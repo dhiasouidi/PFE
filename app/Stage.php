@@ -11,14 +11,9 @@ class Stage extends Model
     protected $fillable = ['TYPE_STAGE','ORGANISME_STAGE','TEL_STAGE','FAX_STAGE','EMAIL_STAGE','ENCADRANT_STAGE','DATE_DEBUT','DATE_FIN'];
 
 
-    public function etudiants()
+    public function etudiant()
     {
-        return $this->hasMany('App\Etudiant' , 'CIN_PASSEPORT' , 'ETUDIANT_ID');
+        return $this->belongsTo('App\Etudiant' , 'ETUDIANT_ID', 'STAGE_ID');
     }
 
-
-    // public function demande()
-    // {
-    //     return $this->hasOne('App\DemandeDeStage', 'DEMANDE_ID', 'ID_DEMANDE');
-    // }
 }

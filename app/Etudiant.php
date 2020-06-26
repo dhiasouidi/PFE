@@ -36,7 +36,7 @@ class Etudiant extends Model
 
     public function stage()
     {
-        return $this->belongsTo('App\Stage', 'CIN_PASSEPORT' , 'ETUDIANT_ID');
+        return $this->hasOne('App\Stage', 'STAGE_ID' , 'ID_STAGE');
     }
 
 }

@@ -9,17 +9,17 @@ class DemandeDeStage extends Model
     protected $primaryKey= 'ID_DEMANDE';
     protected $table = 'demande_de_stages';
 
-    protected $fillable = ['ORGANISME_DEMANDE','TYPE_DEMANDE','ETAT_DEMANDE', 'ETUDIANT_DEMANDE','STAGE_ID'];
+    protected $fillable = [
+        'ORGANISME_DEMANDE',
+        'TYPE_DEMANDE',
+        'ETAT_DEMANDE',
+         'ETUDIANT_DEMANDE',
+         'STAGE_ID'];
 
 
     public function etudiant()
     {
         return $this->belongsTo('App\Etudiant' , 'ETUDIANT_DEMANDE', 'CIN_PASSEPORT');
     }
-
-    // public function stage()
-    // {
-    //     return $this->belongsTo('App\Stage',  'ID_DEMANDE' , 'DEMANDE_ID');
-    // }
 
 }

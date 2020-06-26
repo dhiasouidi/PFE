@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sujet extends Model
 {
-    //
+    protected $primaryKey= 'ID_SUJET';
+
+    protected $fillable = [
+        'TYPE_DEPOT',
+        'SESSION_ECRIT',
+        'SESSION_DEPOT',
+        'TITRE_SUJET',
+        'ABSTRACT',
+        'ENCADRANT',
+        'STATUT_ENCADRANT',
+        'STRUCTURE_RECHERCHE',
+        'DATE_DEPOT',
+    ];
+
 }

@@ -30,7 +30,6 @@ Route::prefix('/')->group(function(){
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
-        Route::get('/affecteretudiant','EtudiantController@affecter');
 
         Route::get('/binome','EtudiantController@binome');
         Route::post('/addbinome','EtudiantController@addbinome');
@@ -44,6 +43,8 @@ Route::prefix('/')->group(function(){
         Route::get('/demande/{id}','DemandeDeStageController@show');
         Route::put('/demande/update/{id}','DemandeDeStageController@update');
         Route::delete('/demande/delete/{id}','DemandeDeStageController@destroy');
+        //ADMIN
+        Route::post('/demande/affecter/{id}','DemandeDeStageController@affecter');
 
 
         Route::get('/enseignantall','EnseignantController@index');

@@ -18,14 +18,14 @@ class CreateStagesTable extends Migration
             $table->string('TYPE_STAGE');
 
             $table->string('ORGANISME_STAGE');
-            $table->string('TEL_STAGE');
-            $table->string('FAX_STAGE');
-            $table->string('EMAIL_STAGE');
+            $table->string('TEL_STAGE')->nullable();
+            $table->string('FAX_STAGE')->nullable();
+            $table->string('EMAIL_STAGE')->nullable();
 
-            $table->string('ENCADRANT_STAGE');
+            $table->string('ENCADRANT_STAGE')->nullable();
 
-            $table->string('DATE_DEBUT');
-            $table->string('DATE_FIN');
+            $table->string('DATE_DEBUT')->nullable();
+            $table->string('DATE_FIN')->nullable();
 
             // $table->string('ETUDIANT_ID');
 

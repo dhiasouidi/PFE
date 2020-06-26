@@ -8,7 +8,7 @@ class Stage extends Model
 {
     protected $primaryKey= 'ID_STAGE';
 
-    protected $fillable = ['DEMANDE_ID'];
+    protected $fillable = ['TYPE_STAGE','ORGANISME_STAGE','TEL_STAGE','FAX_STAGE','EMAIL_STAGE','ENCADRANT_STAGE','DATE_DEBUT','DATE_FIN'];
 
 
     public function etudiants()

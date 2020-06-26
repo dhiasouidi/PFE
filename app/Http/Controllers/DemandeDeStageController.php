@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\DemandeDeStage;
 use App\Etudiant;
+use App\Stage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -143,5 +144,24 @@ class DemandeDeStageController extends Controller
         $id->delete();
 
         return response()->json(null,204);
+    }
+
+    public function affecter($id)
+    {
+        $demande = DemandeDeStage::find($id);
+        if(is_null($demande))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        if($demande->ETAT_DEMANDE = 'NA'){
+            $demande->ETAT_DEMANDE= 'A';
+
+            $stage = Stage::create([
+                'TYPE_STAGE' => $demande->TYPE_DEMANDE,
+                'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE ,
+            ]);
+            $demande->save();
+            return response()->json($demande,200);
+        }
     }
 }

@@ -29,6 +29,10 @@ class CreateEtudiantsTable extends Migration
             $table->string('CYCLE');
             $table->string('NIVEAU');
             $table->string('etudiant_type');
+
+            $table->string('STAGE_ID');
+
+            $table->foreign('STAGE_ID')->references('ID_STAGE')->on('stages')->onDelete('cascade');
             $table->timestamps();
         });
     }

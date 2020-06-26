@@ -118,7 +118,7 @@ class EtudiantController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        if($etudiant->statut_binome = '0' && $binome->binome_id!= $etudiant->CIN_PASSEPORT)
+        if($etudiant->statut_binome == '0' && $binome->binome_id!= $etudiant->CIN_PASSEPORT)
         {
             $etudiant->fill( $binome->all() )->save();
             return response()->json($binome,200);
@@ -152,8 +152,9 @@ class EtudiantController extends Controller
         if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT)
         {
             $binome_objet->statut_binome='1';
-            $etudiant->binome_id    =$binome->CIN_PASSEPORT;
+            $etudiant->binome_id  = $binome->CIN_PASSEPORT;
             $etudiant->statut_binome='1';
+            $etudiant->STAGE_ID=$binome_objet->STAGE_ID;
             $etudiant->save();
             $binome_objet->save();
             return response()->json([$etudiant,$binome_objet],200);

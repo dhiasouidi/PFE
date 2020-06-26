@@ -31,9 +31,9 @@ class EtudiantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function index()
     {
-        //
+        return response()->json(Etudiant::get(),200);
     }
 
     /**
@@ -42,9 +42,14 @@ class EtudiantController extends Controller
      * @param  \App\Etudiant  $etudiant
      * @return \Illuminate\Http\Response
      */
-    public function show(Etudiant $etudiant)
+    public function show(Etudiant $id)
     {
-        //
+        $etudiant = Etudiant::find($id);
+        if(is_null($etudiant))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        return response()->json(Etudiant::find($id));
     }
 
     /**

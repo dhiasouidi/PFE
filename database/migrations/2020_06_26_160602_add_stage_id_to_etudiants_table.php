@@ -15,7 +15,7 @@ class AddStageIdToEtudiantsTable extends Migration
     {
         Schema::table('etudiants', function (Blueprint $table) {
 
-            $table->string('STAGE_ID')->nullable();
+            $table->bigInteger('STAGE_ID')->nullable();
 
             $table->foreign('STAGE_ID')->references('ID_STAGE')->on('stages')->onDelete('cascade');
         });

@@ -38,6 +38,7 @@ class CreateSoutenancesTable extends Migration
             $table->string('ID_MJ1');
             $table->string('ID_MJ2');
 
+            $table->unique(['ID_PJ','ID_RAP','ID_MJ1','ID_MJ2']);
 
             $table->foreign('ID_SUJET')->references('ID_SUJET')->on('sujets')->onDelete('cascade');
             $table->foreign('ID_PJ')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');

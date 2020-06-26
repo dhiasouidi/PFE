@@ -46,7 +46,11 @@ Route::prefix('/')->group(function(){
 
 
         Route::get('/enseignantall','EnseignantController@index');
+        Route::get('/enseignant/{id}','EnseignantController@show');
         Route::post('/enseignantsave','EnseignantController@create');
+        Route::put('/enseignant/update/{id}','EnseignantController@update');
+        Route::delete('/enseignant/delete/{id}','EnseignantController@destroy');
+
 
 
 

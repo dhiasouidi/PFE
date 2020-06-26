@@ -87,9 +87,15 @@ class EnseignantController extends Controller
      * @param  \App\Enseignant  $enseignant
      * @return \Illuminate\Http\Response
      */
-    public function show(Enseignant $enseignant)
+    public function show(Enseignant $id)
     {
-        //
+        $enseignant = Enseignant::find($id);
+        if(is_null($enseignant))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        return response()->json(Enseignant::find($id));
+
     }
 
     /**
@@ -110,9 +116,15 @@ class EnseignantController extends Controller
      * @param  \App\Enseignant  $enseignant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Enseignant $enseignant)
+    public function update(Request $request, $id)
     {
-        //
+        $enseignant = Enseignant::find($id);
+        if(is_null($enseignant))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $enseignant->update($request->all());
+        return response()->json($enseignant,200);
     }
 
     /**
@@ -121,8 +133,16 @@ class EnseignantController extends Controller
      * @param  \App\Enseignant  $enseignant
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Enseignant $enseignant)
+    public function destroy($id)
     {
-        //
+        $enseignant = Enseignant::find($id);
+        if(is_null($enseignant))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+
+        $enseignant->delete();
+
+        return response()->json(null,204);
     }
 }

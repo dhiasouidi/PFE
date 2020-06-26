@@ -122,8 +122,8 @@ class DemandeDeStageController extends Controller
         {
             return response()->json(["message" => 'Record not found'],404);
         }
-        $id->update($request->all());
-        return response()->json($id,200);
+        $demande->update($request->all());
+        return response()->json($demande,200);
     }
 
     /**

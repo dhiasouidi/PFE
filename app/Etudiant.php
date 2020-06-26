@@ -36,7 +36,7 @@ class Etudiant extends Model
 
     public function stage()
     {
-        return $this->hasOne('App\Stage', 'STAGE_ID' , 'ID_STAGE');
+        return $this->hasOne('App\Stage' , 'ID_STAGE', 'STAGE_ID');
     }
 
 }

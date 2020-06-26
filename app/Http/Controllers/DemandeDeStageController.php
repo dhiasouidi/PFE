@@ -160,6 +160,7 @@ class DemandeDeStageController extends Controller
             $stage = Stage::create([
                 'TYPE_STAGE' => $demande->TYPE_DEMANDE,
                 'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE,
+                'ETUDIANT_ID' => $demande->ETUDIANT_DEMANDE
             ]);
 
             $etudiant = Etudiant::find($demande->ETUDIANT_DEMANDE);

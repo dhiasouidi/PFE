@@ -172,4 +172,14 @@ class EtudiantController extends Controller
         $etudiant->fill( $binome->all() )->save();
         return response()->json($binome,200);
     }
+
+    public function stage()
+    {
+        $etudiant = $this->currentetudiant();
+        if(is_null($etudiant->stage))
+        {
+            return response()->json(["message" => 'Stage not found'],404);
+        }
+        return $etudiant->stage;
+    }
 }

@@ -88,4 +88,14 @@ class StageController extends Controller
     {
         //
     }
+
+    public function etudiant($id)
+    {
+        $stage = Stage::find($id);
+        if(is_null($stage))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        return $stage->etudiant;
+    }
 }

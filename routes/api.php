@@ -46,6 +46,8 @@ Route::prefix('/')->group(function(){
         //ADMIN
         Route::post('/demande/affecter/{id}','DemandeDeStageController@affecter');
 
+        Route::get('/getstageetudiant','EtudiantController@stage');
+        Route::get('/getetudiantstage/{id}','StageController@etudiant');
 
         Route::get('/enseignantall','EnseignantController@index');
         Route::get('/enseignant/{id}','EnseignantController@show');

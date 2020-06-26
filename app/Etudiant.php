@@ -34,13 +34,9 @@ class Etudiant extends Model
                     ->where('statut_binome','1');
     }
 
-    function binome_invited()
+    public function stage()
     {
-        return $this->belongsTo('App\Etudiant', 'binome_id', 'CIN_PASSEPORT');
+        return $this->belongsTo('App\Stage', 'CIN_PASSEPORT' , 'ETUDIANT_ID');
     }
-
-    function binomes_invited_by()
-    {
-        return $this->belongsTo('App\Binome', 'etudiant_id', 'CIN_PASSEPORT');    }
 
 }

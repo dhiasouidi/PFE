@@ -11,6 +11,12 @@ class Stage extends Model
     protected $fillable = ['DEMANDE_ID'];
 
 
+    public function etudiants()
+    {
+        return $this->hasMany('App\Etudiant' , 'CIN_PASSEPORT' , 'ETUDIANT_ID');
+    }
+
+
     // public function demande()
     // {
     //     return $this->hasOne('App\DemandeDeStage', 'DEMANDE_ID', 'ID_DEMANDE');

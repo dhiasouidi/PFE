@@ -161,7 +161,7 @@ class DemandeDeStageController extends Controller
                 'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE ,
             ]);
             $demande->save();
-            return response()->json($demande,200);
+            return response()->json([$demande,$stage],200);
         }
     }
 }

@@ -67,9 +67,15 @@ class StageController extends Controller
      * @param  \App\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Stage $stage)
+    public function update(Request $request,$id)
     {
-        //
+        $stage = Stage::find($id);
+        if(is_null($stage))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $stage->update($request->all());
+        return response()->json($stage,200);
     }
 
     /**

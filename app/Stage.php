@@ -11,8 +11,8 @@ class Stage extends Model
     protected $fillable = ['DEMANDE_ID'];
 
 
-    public function demande()
-    {
-        return $this->hasOne('App\DemandeDeStage', 'DEMANDE_ID', 'ID_DEMANDE');
-    }
+    // public function demande()
+    // {
+    //     return $this->hasOne('App\DemandeDeStage', 'DEMANDE_ID', 'ID_DEMANDE');
+    // }
 }

@@ -30,6 +30,7 @@ class CreateSoutenancesTable extends Migration
             $table->string('DECISION');
             $table->string('MENTION');
 
+            $table->string('SALLE');
             $table->string('NOTE');
 
             $table->bigInteger('ID_SUJET');

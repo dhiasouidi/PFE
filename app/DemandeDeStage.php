@@ -17,9 +17,9 @@ class DemandeDeStage extends Model
         return $this->belongsTo('App\Etudiant' , 'ETUDIANT_DEMANDE', 'CIN_PASSEPORT');
     }
 
-    public function stage()
-    {
-        return $this->belongsTo('App\Stage',  'ID_DEMANDE' , 'DEMANDE_ID');
-    }
+    // public function stage()
+    // {
+    //     return $this->belongsTo('App\Stage',  'ID_DEMANDE' , 'DEMANDE_ID');
+    // }
 
 }

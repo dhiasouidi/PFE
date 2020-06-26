@@ -86,7 +86,7 @@ class EtudiantController extends Controller
         $authenticated_user = Auth::user();
         $user = User::find($authenticated_user->login);
         $etudiant = Etudiant::find($user->login);
-        return response($etudiant->binome_invited);
+        return response($etudiant->binome);
     }
 
     public function currentetudiant()
@@ -112,12 +112,13 @@ class EtudiantController extends Controller
         {
             return response()->json($validator->errors(),400);
         }
-        if($etudiant->statut_binome = '0')
+
+        if($etudiant->statut_binome = '0' && $binome->binome_id!= $etudiant->CIN_PASSEPORT)
         {
             $etudiant->fill( $binome->all() )->save();
             return response()->json($binome,200);
         }
-        return response()->json(['message'=>'You can\'t send request,You already have a partner'],401 );
+        return response()->json(['message'=>'You can\'t send request'],401 );
     }
 
     //ADMIN ONLY
@@ -133,6 +134,7 @@ class EtudiantController extends Controller
 
             return response()->json(null,204);
         }
+        return response()->json(['message'=>'You can\'t delete your partner'],401 );
 
     }
 
@@ -145,12 +147,14 @@ class EtudiantController extends Controller
         if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT)
         {
             $binome_objet->statut_binome='1';
-            $etudiant->binome_id=$binome->CIN_PASSEPORT;
+            $etudiant->binome_id    =$binome->CIN_PASSEPORT;
             $etudiant->statut_binome='1';
             $etudiant->save();
             $binome_objet->save();
             return response()->json([$etudiant,$binome_objet],200);
         }
+        return response()->json(['message'=>'You can\'t delete your partner'],401 );
+
 
     }
 

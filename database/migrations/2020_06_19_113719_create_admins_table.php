@@ -19,6 +19,7 @@ class CreateAdminsTable extends Migration
             $table->string('NOM');
             $table->string('PRENOM');
             $table->string('FONCTION');
+            $table->timestamps();
 
         });
     }

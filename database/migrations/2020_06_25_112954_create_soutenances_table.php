@@ -14,7 +14,40 @@ class CreateSoutenancesTable extends Migration
     public function up()
     {
         Schema::create('soutenances', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('ID_SOUTENANCE');
+
+
+            $table->string('TAUX_PLAGIAT');
+            $table->date('DATE_SOUTENANCE');
+
+            $table->string('FORME');
+            $table->string('ORIGINALITE');
+            $table->string('METHODOLOGIE');
+            $table->string('ORAL');
+            $table->string('APPRECIATION');
+            $table->string('OBSERVATIONS');
+
+            $table->string('DECISION');
+            $table->string('MENTION');
+
+            $table->string('NOTE');
+
+            $table->bigInteger('ID_SUJET');
+            $table->string('ID_PJ');
+            $table->string('ID_RAP');
+            $table->string('ID_MJ1');
+            $table->string('ID_MJ2');
+
+
+            $table->foreign('ID_SUJET')->references('ID_SUJET')->on('sujets')->onDelete('cascade');
+            $table->foreign('ID_PJ')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');
+            $table->foreign('ID_RAP')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');
+            $table->foreign('ID_MJ1')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');
+            $table->foreign('ID_MJ2')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');
+
+
+
+
             $table->timestamps();
         });
     }

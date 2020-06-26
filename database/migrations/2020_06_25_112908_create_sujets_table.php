@@ -14,7 +14,7 @@ class CreateSujetsTable extends Migration
     public function up()
     {
         Schema::create('sujets', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('ID_SUJET');
             $table->timestamps();
         });
     }

@@ -59,6 +59,7 @@ Route::prefix('/')->group(function(){
         Route::delete('/enseignant/delete/{id}','EnseignantController@destroy');
 
         Route::post('/accepterencadrement/{id}','SujetController@acceptencadrement');
+        Route::post('/refuserencadrement/{id}','SujetController@refuserencadrement');
 
         Route::post('/sujetsave','SujetController@create');
 

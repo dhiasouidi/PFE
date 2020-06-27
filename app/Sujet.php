@@ -20,4 +20,8 @@ class Sujet extends Model
         'DATE_DEPOT',
     ];
 
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'sujet_tag' , 'tag_id',  'SUJET_ID' );
+    }
 }

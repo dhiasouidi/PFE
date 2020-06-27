@@ -23,10 +23,8 @@ class CreateSujetsTable extends Migration
             $table->string('TITRE_SUJET');
             $table->string('ABSTRACT');
 
-            $table->string('ENCADRANT');
+            $table->string('ENCADRANT')->nullable();
             $table->string('STATUT_ENCADRANT')->default('0');
-
-            $table->string('STRUCTURE_RECHERCHE');
 
             $table->date('DATE_DEPOT');
 

@@ -26,9 +26,34 @@ class SujetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $sujet)
     {
-        //
+        $rules= [
+            'TYPE_DEPOT' =>'required|string|min:2|max:255',
+            'SESSION_ECRIT' =>'required|string|min:2|max:255',
+            'SESSION_DEPOT' =>'required|string|min:2|max:255',
+            'TITRE_SUJET' =>'required|string|min:2|max:255',
+            'ABSTRACT' =>'required|string|min:2|max:255',
+        ];
+
+        $validator = Validator::make($sujet->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+        $sujet=Sujet::create([
+            'TYPE_DEPOT' => request('TYPE_DEPOT'),
+            'SESSION_ECRIT' => request('SESSION_ECRIT'),
+            'SESSION_DEPOT' => request('SESSION_DEPOT'),
+            'TITRE_SUJET' => request('TITRE_SUJET'),
+            'ABSTRACT' => request('ABSTRACT'),
+        ]);
+
+        return response()->json($sujet,201);
+
+
     }
 
     /**

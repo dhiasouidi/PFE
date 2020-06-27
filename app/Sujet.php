@@ -24,4 +24,9 @@ class Sujet extends Model
     {
         return $this->belongsToMany(Tag::class, 'sujet_tag' , 'tag_id',  'SUJET_ID' );
     }
+
+    public function taches()
+    {
+        return $this->hasMany('App\Tache' ,'' , '' );
+    }
 }

@@ -118,10 +118,13 @@ class EtudiantController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        if($etudiant->statut_binome == '0' && $binome->binome_id!= $etudiant->CIN_PASSEPORT)
+        if($etudiant->statut_binome != '1' &&
+        $etudiant->binome_id == null &&
+        $binome->binome_id != $etudiant->CIN_PASSEPORT  )
+        //&&  $etudiant->SUJET_ID != null
         {
             $etudiant->fill( $binome->all() )->save();
-            return response()->json($binome,200);
+            return response()->json($etudiant,200);
         }
         return response()->json(['message'=>'You can\'t send request'],401 );
     }
@@ -131,7 +134,7 @@ class EtudiantController extends Controller
     {
         $etudiant = $this->currentetudiant();
 
-        if($etudiant->statut_binome == '0')
+        if($etudiant->statut_binome != '1' && $etudiant->binome_id !=null)
         {
             $etudiant->binome_id=null;
             $etudiant->statut_binome='0';
@@ -149,7 +152,8 @@ class EtudiantController extends Controller
 
         $binome_objet = Etudiant::find($binome->CIN_PASSEPORT);
 
-        if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT)
+        if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT
+            && $etudiant->statut_binome !='1')
         {
             $binome_objet->statut_binome='1';
             $etudiant->binome_id  = $binome->CIN_PASSEPORT;
@@ -158,8 +162,7 @@ class EtudiantController extends Controller
             $binome_objet->save();
             return response()->json([$etudiant,$binome_objet],200);
         }
-        return response()->json(['message'=>'You can\'t delete your partner'],401 );
-
+        return response()->json(['message'=>'You can\'t accept request'],401 );
 
     }
 
@@ -170,9 +173,14 @@ class EtudiantController extends Controller
         $etudiant->statut_binome='2';
 
         $etudiant->fill( $binome->all() )->save();
-        return response()->json($binome,200);
+        return response()->json($etudiant,200);
     }
 
+    public function demandesbinome()
+    {
+        $etudiant = $this->currentetudiant();
+        $demandes= Etudiant::find();
+    }
     public function stage()
     {
         $etudiant = $this->currentetudiant();

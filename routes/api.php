@@ -40,6 +40,7 @@ Route::prefix('/')->group(function(){
         Route::post('/addencadrant','SujetController@addencadrant');
 
         Route::post('/demandesave','DemandeDeStageController@create');
+        Route::get('/mesdemandes','DemandeDeStageController@mesdemandes');
         Route::get('/demandeall','DemandeDeStageController@index');
         Route::get('/demande/{id}','DemandeDeStageController@show');
         Route::put('/demande/update/{id}','DemandeDeStageController@update');

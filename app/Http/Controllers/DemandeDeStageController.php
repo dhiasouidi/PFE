@@ -171,4 +171,13 @@ class DemandeDeStageController extends Controller
             return response()->json([$etudiant,$demande,$stage],200);
         }
     }
+
+    public function mesdemandes()
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
+        return $etudiant->demandes;
+    }
 }

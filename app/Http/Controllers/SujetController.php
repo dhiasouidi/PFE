@@ -51,6 +51,12 @@ class SujetController extends Controller
             'ABSTRACT' => request('ABSTRACT'),
         ]);
 
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+        $etudiant->SUJET_ID = $sujet->ID_SUJET;
+        $etudiant->save();
+
         return response()->json($sujet,201);
 
 

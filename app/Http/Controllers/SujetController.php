@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enseignant;
 use App\Etudiant;
 use App\Sujet;
 use Illuminate\Http\Request;
@@ -169,6 +170,24 @@ class SujetController extends Controller
             return response()->json(null,204);
         }
         return response()->json(['message'=>'You can\'t delete your supervisor'],401 );
+
+    }
+
+    public function acceptencadrement($id)
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $encadrant = Enseignant::find($user->login);
+
+        $sujet= Sujet::find($id);
+
+        if($sujet->ENCADRANT == $encadrant->ID_ENSEIGNANT && $sujet->STATUT_ENCADRANT !='1' )
+        {
+            $sujet->STATUT_ENCADRANT='1';
+            $sujet->save();
+            return response()->json([$sujet,$encadrant],200);
+        }
+        return response()->json(['message'=>'You can\'t accept request'],401 );
 
     }
 }

@@ -6,6 +6,7 @@ use App\Enseignant;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class EnseignantController extends Controller
 {
@@ -60,7 +61,7 @@ class EnseignantController extends Controller
 
             $user = User::create([
                 'login' => request('ID_ENSEIGNANT'),
-                'password' => 'admin',
+                'password' => Hash::make('admin'),
                 'email' => request('EMAIL'),
                 'userable_id' => request('ID_ENSEIGNANT'),
                 'userable_type' => 'enseignant',

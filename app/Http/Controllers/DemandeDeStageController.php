@@ -165,6 +165,7 @@ class DemandeDeStageController extends Controller
 
             $etudiant = Etudiant::find($demande->ETUDIANT_DEMANDE);
             $etudiant->STAGE_ID=$stage->ID_STAGE;
+            $etudiant->AFFECTATION = 'A';
 
             $demande->save();
             $etudiant->save();

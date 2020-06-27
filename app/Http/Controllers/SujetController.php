@@ -185,9 +185,27 @@ class SujetController extends Controller
         {
             $sujet->STATUT_ENCADRANT='1';
             $sujet->save();
-            return response()->json([$sujet,$encadrant],200);
+            return response()->json([$sujet],200);
         }
         return response()->json(['message'=>'You can\'t accept request'],401 );
+
+    }
+
+    public function refuserencadrement($id)
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $encadrant = Enseignant::find($user->login);
+
+        $sujet= Sujet::find($id);
+
+        if($sujet->STATUT_ENCADRANT !='1')
+        {
+            $sujet->STATUT_ENCADRANT='2';
+            $sujet->save();
+            return response()->json([$sujet],200);
+        }
+        return response()->json(['message'=>'You can\'t refuse request'],401 );
 
     }
 }

@@ -38,6 +38,7 @@ Route::prefix('/')->group(function(){
         Route::post('/refusebinome','EtudiantController@refusebinome');
 
         Route::post('/addencadrant','SujetController@addencadrant');
+        Route::delete('/deleteencadrant','SujetController@deleteencadrant');
 
         Route::post('/demandesave','DemandeDeStageController@create');
         Route::get('/mesdemandes','DemandeDeStageController@mesdemandes');

@@ -120,8 +120,9 @@ class EtudiantController extends Controller
 
         if($etudiant->statut_binome != '1' &&
         $etudiant->binome_id == null &&
-        $binome->binome_id != $etudiant->CIN_PASSEPORT  )
-        //&&  $etudiant->SUJET_ID != null
+        $binome->binome_id != $etudiant->CIN_PASSEPORT &&
+        $etudiant->SUJET_ID != null )
+
         {
             $etudiant->fill( $binome->all() )->save();
             return response()->json($etudiant,200);
@@ -190,4 +191,6 @@ class EtudiantController extends Controller
         }
         return $etudiant->stage;
     }
+
+
 }

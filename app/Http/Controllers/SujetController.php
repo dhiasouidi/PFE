@@ -124,7 +124,7 @@ class SujetController extends Controller
         //
     }
 
-    public function addencadrant(Request $encadrant)
+    public  function addencadrant(Request $encadrant)
     {
         $authenticated_user = Auth::user();
         $user = User::find($authenticated_user->login);
@@ -133,7 +133,7 @@ class SujetController extends Controller
         $sujet= Sujet::find($etudiant->SUJET_ID);
 
         $rules= [
-            'ENCADRANT' =>'required|string|min:2'
+            'ENCADRANT' =>'required|string|min:2|max:255'
         ];
 
         $validator = Validator::make($encadrant->all(),$rules);
@@ -143,10 +143,32 @@ class SujetController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        $sujet->ENCADRANT = $encadrant->ENCADRANT;
-        $sujet->save();
-        return response()->json($sujet,200);
+        if($sujet->STATUT_ENCADRANT != '1')
+        {
+            $sujet->ENCADRANT = $encadrant->ENCADRANT;
+            $sujet->save();
+            return response()->json($sujet,200);
+        }
 
         return response()->json(['message'=>'You can\'t send request'],401 );
+    }
+
+    public function deleteencadrant()
+    {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
+        $sujet= Sujet::find($etudiant->SUJET_ID);
+
+        if($sujet->STATUT_ENCADRANT != '1' && $sujet->ENCADRANT !=null)
+        {
+            $sujet->ENCADRANT=null;
+            $sujet->STATUT_ENCADRANT='0';
+            $sujet->save();
+            return response()->json(null,204);
+        }
+        return response()->json(['message'=>'You can\'t delete your supervisor'],401 );
+
     }
 }

@@ -25,8 +25,11 @@ Route::prefix('/')->group(function(){
 
     //Loggedin Users
     Route::group(['middleware' => 'auth:api'], function () {
-        //Demande de Stage CRUD
+        //Infos User
+        Route::put('/changemdp','UserController@changemdp');
 
+
+        //Demande de Stage CRUD
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');

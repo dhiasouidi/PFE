@@ -3,9 +3,9 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Gestion des soutanances</title>
 
-<link rel="stylesheet" type="text/css" href="./Gestion des soutanances_files/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 
-<link rel="stylesheet" type="text/css" href="./Gestion des soutanances_files/Soutenances.css">
+<link rel="stylesheet" type="text/css" href="css/Soutenances.css">
 
 
 <meta name="generator" content="ASPMaker v11.0.3">

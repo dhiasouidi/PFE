@@ -10,4 +10,9 @@ class SeanceEncadrement extends Model
     {
         return $this->hasMany('App\Tache');
     }
+
+    public function sujet()
+    {
+        return $this->belongsTo('App\Sujet','SUJET_ID','ID_SUJET');
+    }
 }

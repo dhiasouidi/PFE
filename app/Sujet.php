@@ -25,8 +25,8 @@ class Sujet extends Model
         return $this->belongsToMany(Tag::class, 'sujet_tag' , 'tag_id',  'SUJET_ID' );
     }
 
-    public function taches()
+    public function seances()
     {
-        return $this->hasMany('App\Tache' ,'' , '' );
+        return $this->hasMany('App\SeanceEncadrement' , 'SUJET_ID' ,'ID_SUJET');
     }
 }

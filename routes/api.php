@@ -1,5 +1,7 @@
 <?php
 
+use App\Enseignant;
+use App\Http\Controllers\EnseignantController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +35,8 @@ Route::prefix('/')->group(function(){
         //Demande de Stage CRUD
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
-        Route::get('/etudiant/update/{id}','EtudiantController@update');
+        Route::post('/etudiantsave','EtudiantController@create');
+        Route::put('/etudiant/update/{id}','EtudiantController@update');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
         Route::get('/getbinomes','EtudiantController@getbinomes');
 
@@ -62,6 +65,7 @@ Route::prefix('/')->group(function(){
 
         Route::get('/enseignantall','EnseignantController@index');
         Route::get('/enseignant/{id}','EnseignantController@show');
+        Route::get('/enseignant/{id}/sujets','EnseignantController@sujets');
         Route::post('/enseignantsave','EnseignantController@create');
         Route::put('/enseignant/update/{id}','EnseignantController@update');
         Route::delete('/enseignant/delete/{id}','EnseignantController@destroy');
@@ -72,6 +76,8 @@ Route::prefix('/')->group(function(){
         Route::post('/sujetsave','SujetController@create');
         Route::get('/sujetsall','SujetController@index');
         Route::get('/sujet/{id}','SujetController@show');
+        Route::get('/messujetsenc','EnseignantController@sujets');
+        Route::get('/mesdemandesenc','EnseignantController@demandes');
 
 
 

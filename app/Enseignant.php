@@ -27,4 +27,16 @@ class Enseignant extends Model
     {
         return $this->morphOne('App\User', 'userable');
     }
+
+    public function sujets()
+    {
+        return $this->hasMany('App\Sujet' , 'ENCADRANT' , 'ID_ENSEIGNANT')
+                    ->where('STATUT_ENCADRANT','1');
+    }
+
+    public function demandes()
+    {
+        return $this->hasMany('App\Sujet' , 'ENCADRANT' , 'ID_ENSEIGNANT')
+                    ->where('STATUT_ENCADRANT','0');
+    }
 }

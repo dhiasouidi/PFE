@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class EnseignantController extends Controller
 {
@@ -137,13 +138,40 @@ class EnseignantController extends Controller
     public function destroy($id)
     {
         $enseignant = Enseignant::find($id);
+
         if(is_null($enseignant))
         {
             return response()->json(["message" => 'Record not found'],404);
         }
-
         $enseignant->delete();
 
         return response()->json(null,204);
+    }
+
+    public function sujets()
+    {
+        $authenticated_enseignat = Auth::user();
+
+        if($authenticated_enseignat->userable_type != 'enseignant')
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+
+        $enseignant = Enseignant::find($authenticated_enseignat->login);
+
+        return $enseignant->sujets;
+    }
+
+    public function demandes()
+    {
+        $authenticated_enseignat = Auth::user();
+
+        if($authenticated_enseignat->userable_type != 'enseignant')
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+
+        $encadrant = Enseignant::find($authenticated_enseignat->login);
+        return $encadrant->demandes;
     }
 }

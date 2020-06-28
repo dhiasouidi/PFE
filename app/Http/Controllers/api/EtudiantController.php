@@ -34,10 +34,10 @@ class EtudiantController extends Controller
             'SKYPE' =>'bail|string|min:2',
             'LINKEDIN' =>'bail|string|min:2',
             'EMAIL' =>'bail|email',
-            'DIPLOME' =>'bail|required|email|min:2',
-            'SPECIALITE' =>'bail|required|email|min:2',
-            'CYCLE' =>'bail|required|email|min:2',
-            'NIVEAU' =>'bail|required|email|min:2',
+            'DIPLOME' =>'bail|required|string|min:2',
+            'SPECIALITE' =>'bail|required|string|min:2',
+            'CYCLE' =>'bail|required|string|max:2',
+            'NIVEAU' =>'bail|required|string|max:2',
         ];
 
         $validator = Validator::make($infos->all(),$rules);
@@ -57,7 +57,6 @@ class EtudiantController extends Controller
                 'TELEPHONE' => request('TELEPHONE'),
                 'SKYPE' => request('SKYPE'),
                 'LINKEDIN' => request('LINKEDIN'),
-                'EMAIL' => request('EMAIL'),
                 'DIPLOME' => request('DIPLOME'),
                 'SPECIALITE' => request('SPECIALITE'),
                 'CYCLE' => request('CYCLE'),
@@ -74,6 +73,23 @@ class EtudiantController extends Controller
                 {
                     $type = 'etudiantregulier';
                 }
+            }else
+            {
+                if(request('NIVEAU') == '1' && substr(request('DIPLOME'),0,3) == 'M.P')
+                {
+                    $type = 'etudiantregulier';
+                }
+                else
+                {
+                    if(substr(request('DIPLOME'),0,3) == 'M.P')
+                    {
+                        $type = 'etudiantmp2';
+                    }
+                    else
+                    {
+                        $type = 'etudiantmr2';
+                    }
+                }
             }
 
             $user = User::create([
@@ -81,7 +97,7 @@ class EtudiantController extends Controller
                 'password' => Hash::make(request('CIN_PASSEPORT')),
                 'email' => request('EMAIL'),
                 'userable_id' => request('CIN_PASSEPORT'),
-                'userable_type' => 'enseignant',
+                'userable_type' => $type,
             ]);
 
             return response()->json([$etudiant,$user],201);

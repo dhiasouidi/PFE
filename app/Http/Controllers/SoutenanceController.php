@@ -14,7 +14,7 @@ class SoutenanceController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Soutenance::get(),200);
     }
 
     /**
@@ -44,9 +44,14 @@ class SoutenanceController extends Controller
      * @param  \App\Soutenance  $soutenance
      * @return \Illuminate\Http\Response
      */
-    public function show(Soutenance $soutenance)
+    public function show( $id)
     {
-        //
+        $soutenance = Soutenance::find($id);
+        if(is_null($soutenance))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        return response()->json(Soutenance::find($id));
     }
 
     /**

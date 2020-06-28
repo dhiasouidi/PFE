@@ -18,8 +18,7 @@ class CreateTachesTable extends Migration
 
             $table->string('TITRE_TACHE');
             $table->string('DESCRIPTION');
-            $table->string('DEADLINE');
-            $table->date('MEETING');
+            $table->date('DEADLINE');
             $table->string('STATUT_TACHE');
 
             $table->bigInteger('SUJET_ID');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Sujet;
 use App\Tache;
 use Illuminate\Http\Request;
 
@@ -81,5 +82,24 @@ class TacheController extends Controller
     public function destroy(Tache $tache)
     {
         //
+    }
+
+    public function assigntask($id ,Request $task)
+    {
+        $sujet = Sujet::find($id);
+        if(is_null($sujet))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+
+        $task = Tache::create([
+            'TITRE_TACHE' =>  $task->TITRE_TACHE,
+            'DESCRIPTION' =>  $task->DESCRIPTION,
+            'DEADLINE' =>  $task->DEADLINE,
+            'TITRE_TACHE' =>  $task->TITRE_TACHE,
+            'TITRE_TACHE' =>  $task->TITRE_TACHE,
+
+        ]);
+
     }
 }

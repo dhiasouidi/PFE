@@ -60,7 +60,7 @@ class EnseignantController extends Controller
             ]);
 
             $user = User::create([
-                'login' => request('ID_ENSEIGNANT'),
+                'login' => request('NOM').request('PRENOM').'ISGT',
                 'password' => Hash::make('admin'),
                 'email' => request('EMAIL'),
                 'userable_id' => request('ID_ENSEIGNANT'),

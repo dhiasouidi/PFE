@@ -70,9 +70,32 @@ class EtudiantController extends Controller
      * @param  \App\Etudiant  $etudiant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Etudiant $etudiant)
+    public function update(Request $request)
     {
-        //
+
+        $etudiant = $this->currentetudiant();
+
+        $rules= [
+            'NOM' => 'string|min:2|max:255',
+            'PRENOM' => 'string|min:2|max:255',
+            'DATE_NAISSAINCE' => 'date',
+            'TELEPHONE' => 'string|min:2|max:255',
+            'SKYPE' => 'string|min:2|max:255',
+            'LINKEDIN' => 'string|min:2|max:255',
+                ];
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+        $etudiant->update($request->all());
+        return response()->json($etudiant,200);
+
+
+        return response()->json($etudiant,200);
     }
 
     /**

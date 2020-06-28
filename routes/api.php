@@ -27,6 +27,7 @@ Route::prefix('/')->group(function(){
     Route::group(['middleware' => 'auth:api'], function () {
         //Infos User
         Route::put('/changemdp','UserController@changemdp');
+        Route::put('/updateinfos','EtudiantController@update');
 
 
         //Demande de Stage CRUD

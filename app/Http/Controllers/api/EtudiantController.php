@@ -215,5 +215,13 @@ class EtudiantController extends Controller
         return $etudiant->stage;
     }
 
+    public function getbinomes()
+    {
+        $etudiant = Etudiant::get()
+                            ->where('statut_binome','1')
+                            ->whereNotNull('binome_id');
 
+        return response()->json($etudiant,200);
+
+    }
 }

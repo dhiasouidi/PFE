@@ -77,5 +77,6 @@ Route::prefix('/')->group(function(){
 
 
     });
+    Route::get('/pdf','PDFController@print');
 
 });

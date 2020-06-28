@@ -33,6 +33,7 @@ Route::prefix('/')->group(function(){
         //Demande de Stage CRUD
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
+        Route::get('/etudiant/update/{id}','EtudiantController@update');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
         Route::get('/getbinomes','EtudiantController@getbinomes');
 

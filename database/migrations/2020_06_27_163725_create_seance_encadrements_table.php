@@ -15,6 +15,13 @@ class CreateSeanceEncadrementsTable extends Migration
     {
         Schema::create('seance_encadrements', function (Blueprint $table) {
             $table->id();
+
+            $table->date('DATE_SEANCE');
+
+
+            $table->bigInteger('SUJET_ID');
+            $table->foreign('SUJET_ID')->references('ID_SUJET')->on('sujets')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

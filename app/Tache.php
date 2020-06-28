@@ -6,8 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tache extends Model
 {
-    public function sujet()
+
+    public function seance()
     {
-        return $this->belongsTo('App\Sujet', '', '');
+        return $this->belongsTo('App\SeanceEncadrement' , 'ID_SEANCE');
     }
+
 }

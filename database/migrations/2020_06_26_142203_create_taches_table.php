@@ -20,8 +20,8 @@ class CreateTachesTable extends Migration
             $table->string('DESCRIPTION');
             $table->string('STATUT_TACHE');
 
-            $table->bigInteger('SEANCE_ENCADREMENT');
-            $table->foreign('SEANCE_ENCADREMENT')->references('id')->on('seance_encadrements')->onDelete('cascade');
+            $table->bigInteger('ID_SEANCE');
+            $table->foreign('ID_SEANCE')->references('id')->on('seance_encadrements')->onDelete('cascade');
 
             $table->timestamps();
         });

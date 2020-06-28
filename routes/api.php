@@ -55,6 +55,8 @@ Route::prefix('/')->group(function(){
 
         Route::get('/getstageetudiant','EtudiantController@stage');
         Route::get('/getetudiantstage/{id}','StageController@etudiant');
+        Route::get('/stage/{id}','StageController@show');
+        Route::get('/stagesall','StageController@index');
 
         Route::get('/enseignantall','EnseignantController@index');
         Route::get('/enseignant/{id}','EnseignantController@show');
@@ -66,7 +68,8 @@ Route::prefix('/')->group(function(){
         Route::post('/refuserencadrement/{id}','SujetController@refuserencadrement');
 
         Route::post('/sujetsave','SujetController@create');
-
+        Route::get('/sujetsall','SujetController@index');
+        Route::get('/sujet/{id}','SujetController@show');
 
 
 

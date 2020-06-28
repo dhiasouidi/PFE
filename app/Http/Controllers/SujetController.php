@@ -19,7 +19,7 @@ class SujetController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Sujet::get(),200);
     }
 
     /**
@@ -80,9 +80,14 @@ class SujetController extends Controller
      * @param  \App\Sujet  $sujet
      * @return \Illuminate\Http\Response
      */
-    public function show(Sujet $sujet)
+    public function show($id)
     {
-        //
+        $sujet = Sujet::find($id);
+        if(is_null($sujet))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        return response()->json(Sujet::find($id));
     }
 
     /**

@@ -141,7 +141,7 @@ class DemandeDeStageController extends Controller
             return response()->json(["message" => 'Record not found'],404);
         }
 
-        $id->delete();
+        $demande->delete();
 
         return response()->json(null,204);
     }

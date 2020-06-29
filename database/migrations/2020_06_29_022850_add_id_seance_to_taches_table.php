@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTachesTable extends Migration
+class AddIdSeanceToTachesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,9 @@ class CreateTachesTable extends Migration
      */
     public function up()
     {
-        Schema::create('taches', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('TITRE_TACHE');
-            $table->string('DESCRIPTION');
-            $table->string('STATUT_TACHE');
-
-
-
-            $table->timestamps();
+        Schema::table('taches', function (Blueprint $table) {
+            $table->bigInteger('ID_SEANCE');
+            $table->foreign('ID_SEANCE')->references('id')->on('seance_encadrements')->onDelete('cascade');
         });
     }
 
@@ -33,6 +26,8 @@ class CreateTachesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('taches');
+        Schema::table('taches', function (Blueprint $table) {
+            //
+        });
     }
 }

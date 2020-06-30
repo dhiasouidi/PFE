@@ -15,6 +15,9 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
+            $table->string('TYPE');
+            $table->date('DATE');
+            $table->boolean('TIRAGE');
             $table->timestamps();
         });
     }

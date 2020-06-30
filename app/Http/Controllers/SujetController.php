@@ -69,10 +69,6 @@ class SujetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -96,10 +92,7 @@ class SujetController extends Controller
      * @param  \App\Sujet  $sujet
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sujet $sujet)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.

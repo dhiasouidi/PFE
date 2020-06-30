@@ -136,10 +136,6 @@ class EtudiantController extends Controller
      * @param  \App\Etudiant  $etudiant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Etudiant $etudiant)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

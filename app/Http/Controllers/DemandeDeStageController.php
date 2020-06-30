@@ -77,10 +77,7 @@ class DemandeDeStageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.
@@ -104,11 +101,6 @@ class DemandeDeStageController extends Controller
      * @param  \App\DemandeDeStage  $demandeDeStage
      * @return \Illuminate\Http\Response
      */
-    public function edit()
-    {
-
-    }
-
     /**
      * Update the specified resource in storage.
      *

@@ -33,10 +33,6 @@ class StageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -60,10 +56,6 @@ class StageController extends Controller
      * @param  \App\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function edit(Stage $stage)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

@@ -78,10 +78,6 @@ class EnseignantController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -106,10 +102,6 @@ class EnseignantController extends Controller
      * @param  \App\Enseignant  $enseignant
      * @return \Illuminate\Http\Response
      */
-    public function edit(Enseignant $enseignant)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

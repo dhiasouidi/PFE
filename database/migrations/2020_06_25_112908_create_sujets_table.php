@@ -26,6 +26,7 @@ class CreateSujetsTable extends Migration
             $table->string('ENCADRANT')->nullable();
             $table->string('STATUT_ENCADRANT')->default('0');
 
+            $table->boolean('DEPOSE')->default('0');
             $table->date('DATE_DEPOT')->nullable();
 
             $table->foreign('ENCADRANT')->references('ID_ENSEIGNANT')->on('enseignants')->onDelete('cascade');

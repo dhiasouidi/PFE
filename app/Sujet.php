@@ -29,4 +29,9 @@ class Sujet extends Model
     {
         return $this->hasMany('App\SeanceEncadrement' , 'SUJET_ID' ,'ID_SUJET');
     }
+
+    public function etudiant()
+    {
+        return $this->hasMany('App\Etudiant' , 'SUJET_ID', 'ID_SUJET' );
+    }
 }

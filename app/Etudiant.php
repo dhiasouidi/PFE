@@ -39,4 +39,9 @@ class Etudiant extends Model
         return $this->hasOne('App\Stage' , 'ID_STAGE', 'STAGE_ID');
     }
 
+    public function sujet()
+    {
+        return $this->belongsTo('App\Sujet' , 'SUJET_ID','ID_SUJET');
+    }
+
 }

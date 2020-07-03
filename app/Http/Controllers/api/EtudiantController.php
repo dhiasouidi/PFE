@@ -188,7 +188,13 @@ class EtudiantController extends Controller
         $authenticated_user = Auth::user();
         $user = User::find($authenticated_user->login);
         $etudiant = Etudiant::find($user->login);
-        return response($etudiant->binome);
+        if($etudiant->statut_binome != '1')
+        {
+            return response()->json(["message" => 'Vous n\'avez pas un binome'],400);
+        }
+
+        return response()->json($etudiant->binome,201);
+
     }
 
     public function currentetudiant()
@@ -215,16 +221,39 @@ class EtudiantController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        if($etudiant->statut_binome != '1' &&
-        $etudiant->binome_id == null &&
-        $binome->binome_id != $etudiant->CIN_PASSEPORT &&
-        $etudiant->SUJET_ID != null )
+        $bin = Etudiant::find($binome->binome_id);
 
+        if(is_null($bin))
         {
-            $etudiant->fill( $binome->all() )->save();
-            return response()->json($etudiant,200);
+            return response()->json(['message'=>'Binome not found'],401 );
         }
-        return response()->json(['message'=>'You can\'t send request'],401 );
+        if($etudiant->SUJET_ID == null)
+        {
+            return response()->json(['message'=>'Vous devez d\'abord créer un sujet'],401 );
+        }
+
+        if($etudiant->statut_binome == '1')
+        {
+            return response()->json(['message'=>'Vous avez déjà un binome'],401 );
+        }
+
+        if($bin->statut_binome == '1')
+        {
+            return response()->json(['message'=>'Etudiant posséde déja un binome'],401 );
+        }
+        if($bin->AFFECTATION == 'NA')
+        {
+            return response()->json(['message'=>'Etudiant n\'est pas affecté à aucun stage'],401 );
+        }
+
+
+        if($binome->binome_id == $etudiant->CIN_PASSEPORT)
+        {
+            return response()->json(['message'=>'Vous pouvez pas etre binome avec toi meme'],401 );
+        }
+
+        $etudiant->fill( $binome->all() )->save();
+        return response()->json($etudiant,200);
     }
 
     //ADMIN ONLY
@@ -232,15 +261,16 @@ class EtudiantController extends Controller
     {
         $etudiant = $this->currentetudiant();
 
-        if($etudiant->statut_binome != '1' && $etudiant->binome_id !=null)
+        if($etudiant->statut_binome == '1' || $etudiant->binome_id ==null)
         {
+            return response()->json(['message'=>'You can\'t delete your partner'],401 );
+        }
+
             $etudiant->binome_id=null;
             $etudiant->statut_binome='0';
             $etudiant->save();
 
             return response()->json(null,204);
-        }
-        return response()->json(['message'=>'You can\'t delete your partner'],401 );
 
     }
 
@@ -250,12 +280,17 @@ class EtudiantController extends Controller
 
         $binome_objet = Etudiant::find($binome->CIN_PASSEPORT);
 
-        if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT
-            && $etudiant->statut_binome !='1')
+        if($etudiant->statut_binome == '1')
+        {
+            return response()->json(['message'=>'Vous avez deja un binome'],401 );
+        }
+
+        if($binome_objet->binome_id == $etudiant->CIN_PASSEPORT)
         {
             $binome_objet->statut_binome='1';
             $etudiant->binome_id  = $binome->CIN_PASSEPORT;
             $etudiant->statut_binome='1';
+            $etudiant->SUJET_ID= $binome_objet->SUJET_ID;
             $etudiant->save();
             $binome_objet->save();
             return response()->json([$etudiant,$binome_objet],200);
@@ -268,6 +303,11 @@ class EtudiantController extends Controller
     {
         $etudiant = Etudiant::find($binome->CIN_PASSEPORT);
 
+        if($etudiant->statut_binome == '1')
+        {
+            return response()->json(['message'=>'Vous avez deja un binome'],401 );
+        }
+
         $etudiant->statut_binome='2';
 
         $etudiant->fill( $binome->all() )->save();
@@ -277,8 +317,13 @@ class EtudiantController extends Controller
     public function demandesbinome()
     {
         $etudiant = $this->currentetudiant();
-        $demandes= Etudiant::find();
+        $demandes= Etudiant::where('binome_id',$etudiant->CIN_PASSEPORT)
+                            ->where('statut_binome','0')
+                            ->get();
+        return response()->json($demandes,200);
+
     }
+
     public function stage()
     {
         $etudiant = $this->currentetudiant();
@@ -291,11 +336,21 @@ class EtudiantController extends Controller
 
     public function getbinomes()
     {
-        $etudiant = Etudiant::get()
-                            ->where('statut_binome','1')
-                            ->whereNotNull('binome_id');
+        $etudiant = Etudiant::where('statut_binome','1')
+                            ->whereNotNull('binome_id')
+                            ->get();
 
         return response()->json($etudiant,200);
 
+    }
+
+    public function sujet()
+    {
+        $etudiant = $this->currentetudiant();
+        if(is_null($etudiant->sujet))
+        {
+            return response()->json(["message" => 'Sujet not found'],404);
+        }
+        return $etudiant->sujet;
     }
 }

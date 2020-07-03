@@ -43,10 +43,12 @@ Route::prefix('/')->group(function(){
         Route::get('/getbinomes','EtudiantController@getbinomes');
 
         Route::get('/binome','EtudiantController@binome');
+        Route::get('/demandesbinome','EtudiantController@demandesbinome');
         Route::post('/addbinome','EtudiantController@addbinome');
         Route::post('/deletebinome','EtudiantController@deletebinome');
         Route::post('/acceptbinome','EtudiantController@acceptbinome');
         Route::post('/refusebinome','EtudiantController@refusebinome');
+
 
         Route::post('/addencadrant','SujetController@addencadrant');
         Route::delete('/deleteencadrant','SujetController@deleteencadrant');
@@ -63,6 +65,8 @@ Route::prefix('/')->group(function(){
         Route::get('/getstageetudiant','EtudiantController@stage');
         Route::get('/getetudiantstage/{id}','StageController@etudiant');
         Route::get('/stage/{id}','StageController@show');
+        Route::post('/stage/complete','StageController@update');
+
         Route::get('/stagesall','StageController@index');
 
         Route::get('/enseignantall','EnseignantController@index');
@@ -80,6 +84,8 @@ Route::prefix('/')->group(function(){
         Route::get('/sujet/{id}','SujetController@show');
         Route::get('/messujetsenc','EnseignantController@sujets');
         Route::get('/mesdemandesenc','EnseignantController@demandes');
+
+        Route::get('/monsujet','EtudiantController@sujet');
 
         Route::post('/upload/rapport','DepotController@UploadRapport');
 

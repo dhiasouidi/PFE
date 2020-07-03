@@ -29,12 +29,24 @@ class SujetController extends Controller
      */
     public function create(Request $sujet)
     {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+        if($etudiant->AFFECTATION == 'NA')
+        {
+            return response()->json(["message" => 'Pas affecté à un stage'],400);
+        }
+
+        if(!is_null($etudiant->SUJET_ID))
+        {
+            return response()->json(["message" => 'Sujet déjà crée'],400);
+        }
+
         $rules= [
-            'TYPE_DEPOT' =>'required|string|min:2|max:255',
-            'SESSION_ECRIT' =>'required|string|min:2|max:255',
-            'SESSION_DEPOT' =>'required|string|min:2|max:255',
+            'SESSION_ECRIT' =>'string|min:2|max:255',
+            'SESSION_DEPOT' =>'string|min:2|max:255',
             'TITRE_SUJET' =>'required|string|min:2|max:255',
-            'ABSTRACT' =>'required|string|min:2|max:255',
+            'ABSTRACT' =>'string|min:2|max:255',
         ];
 
         $validator = Validator::make($sujet->all(),$rules);
@@ -43,13 +55,24 @@ class SujetController extends Controller
         {
             return response()->json($validator->errors(),400);
         }
+        if($etudiant->etudiant_type == 'etudiantpfe')
+        {
+            $ecrit = '0';
+            $depot = '0';
+            $abstract = '0';
+        }else
+        {
+            $ecrit = request('SESSION_ECRIT');
+            $depot = request('SESSION_DEPOT');
+            $abstract = request('ABSTRACT');
+        }
 
         $sujet=Sujet::create([
-            'TYPE_DEPOT' => request('TYPE_DEPOT'),
-            'SESSION_ECRIT' => request('SESSION_ECRIT'),
-            'SESSION_DEPOT' => request('SESSION_DEPOT'),
+            'TYPE_DEPOT' => $etudiant->etudiant_type ,
+            'SESSION_ECRIT' => $ecrit ,
+            'SESSION_DEPOT' => $depot ,
             'TITRE_SUJET' => request('TITRE_SUJET'),
-            'ABSTRACT' => request('ABSTRACT'),
+            'ABSTRACT' => $abstract,
         ]);
 
         $authenticated_user = Auth::user();

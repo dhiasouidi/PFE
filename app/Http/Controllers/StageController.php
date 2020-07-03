@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Stage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
+use App\Etudiant;
 
 class StageController extends Controller
 {
@@ -64,9 +67,14 @@ class StageController extends Controller
      * @param  \App\Stage  $stage
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    //OK
+    public function update(Request $request)
     {
-        $stage = Stage::find($id);
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
+        $stage = Stage::find($etudiant->STAGE_ID);
         if(is_null($stage))
         {
             return response()->json(["message" => 'Record not found'],404);

@@ -31,6 +31,14 @@ class DemandeDeStageController extends Controller
      */
     public function create(Request $infos)
     {
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $etudiant = Etudiant::find($user->login);
+
+        if($etudiant->AFFECTATION == 'A')
+        {
+            return response()->json(['message'=>'Vous etes déja affecté à un stage'],401 );
+        }
         $rules= [
             'ORGANISME_DEMANDE' =>'required|string|min:2'
         ];
@@ -42,11 +50,6 @@ class DemandeDeStageController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        $authenticated_user = Auth::user();
-
-        $user = User::find($authenticated_user->login);
-
-        $etudiant = Etudiant::find($user->login);
 
         $type_etudiant= $etudiant->etudiant_type;
 
@@ -145,24 +148,26 @@ class DemandeDeStageController extends Controller
         {
             return response()->json(["message" => 'Record not found'],404);
         }
-        if($demande->ETAT_DEMANDE = 'NA'){
-
-            $demande->ETAT_DEMANDE= 'A';
-
-            $stage = Stage::create([
-                'TYPE_STAGE' => $demande->TYPE_DEMANDE,
-                'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE,
-                'ETUDIANT_ID' => $demande->ETUDIANT_DEMANDE
-            ]);
-
-            $etudiant = Etudiant::find($demande->ETUDIANT_DEMANDE);
-            $etudiant->STAGE_ID=$stage->ID_STAGE;
-            $etudiant->AFFECTATION = 'A';
-
-            $demande->save();
-            $etudiant->save();
-            return response()->json([$etudiant,$demande,$stage],200);
+        if($demande->ETAT_DEMANDE == 'A'){
+            return response()->json(["message"=>'Stage déjà affecté'],400);
         }
+
+        $demande->ETAT_DEMANDE= 'A';
+
+        $stage = Stage::create([
+            'TYPE_STAGE' => $demande->TYPE_DEMANDE,
+            'ORGANISME_STAGE' =>  $demande->ORGANISME_DEMANDE,
+            'ETUDIANT_ID' => $demande->ETUDIANT_DEMANDE
+        ]);
+
+        $etudiant = Etudiant::find($demande->ETUDIANT_DEMANDE);
+        $etudiant->STAGE_ID=$stage->ID_STAGE;
+        $etudiant->AFFECTATION = 'A';
+
+        $demande->save();
+        $etudiant->save();
+        return response()->json([$etudiant,$demande,$stage],200);
+
     }
 
     public function mesdemandes()

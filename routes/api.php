@@ -24,7 +24,9 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
     Route::post('/forgot','ForgotController@forgot');
+    Route::get('/pdf','PDFController@print');
 
+    Route::get('/download/rapport/{etudiant}','DepotController@DownloadRapport');
     //Loggedin Users
     Route::group(['middleware' => 'auth:api'], function () {
         //Infos User
@@ -79,10 +81,15 @@ Route::prefix('/')->group(function(){
         Route::get('/messujetsenc','EnseignantController@sujets');
         Route::get('/mesdemandesenc','EnseignantController@demandes');
 
+        Route::post('/upload/rapport','DepotController@UploadRapport');
+
+
+
 
 
 
     });
-    Route::get('/pdf','PDFController@print');
+
 
 });
+

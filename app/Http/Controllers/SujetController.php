@@ -154,6 +154,13 @@ class SujetController extends Controller
 
         $sujet= Sujet::find($etudiant->SUJET_ID);
 
+        $infosencadrant = Enseignant::find($encadrant->ENCADRANT);
+
+        if(is_null($infosencadrant))
+        {
+            return response()->json(["message"=>'Enseignant Introuvabale'],404);
+        }
+
         $rules= [
             'ENCADRANT' =>'required|string|min:2|max:255'
         ];
@@ -182,17 +189,28 @@ class SujetController extends Controller
         $etudiant = Etudiant::find($user->login);
 
         $sujet= Sujet::find($etudiant->SUJET_ID);
-
-        if($sujet->STATUT_ENCADRANT != '1' && $sujet->ENCADRANT !=null)
+        if(is_null($sujet))
         {
+            return response()->json(['message'=>'Vous avez pas un sujet '],401 );
+        }
+
+        if($sujet->STATUT_ENCADRANT == '1')
+        {
+            return response()->json(['message'=>'Vous pouvez pas supprimer votre encadrant'],401 );
+        }
+
+        if($sujet->ENCADRANT == null)
+        {
+            return response()->json(['message'=>'Aucun encadrant trouvé'],401 );
+        }
+
             $sujet->ENCADRANT=null;
             $sujet->STATUT_ENCADRANT='0';
             $sujet->save();
             return response()->json(null,204);
-        }
-        return response()->json(['message'=>'You can\'t delete your supervisor'],401 );
 
     }
+
 
     public function acceptencadrement($id)
     {
@@ -201,8 +219,17 @@ class SujetController extends Controller
         $encadrant = Enseignant::find($user->login);
 
         $sujet= Sujet::find($id);
+        if(is_null($sujet))
+        {
+            return response()->json(['message'=>'Sujet introuvable'],401 );
+        }
 
-        if($sujet->ENCADRANT == $encadrant->ID_ENSEIGNANT && $sujet->STATUT_ENCADRANT !='1' )
+        if($sujet->STATUT_ENCADRANT =='1')
+        {
+            return response()->json(['message'=>'Sujet a déjà un encadrant'],401 );
+        }
+
+        if($sujet->ENCADRANT == $encadrant->ID_ENSEIGNANT)
         {
             $sujet->STATUT_ENCADRANT='1';
             $sujet->save();
@@ -220,13 +247,14 @@ class SujetController extends Controller
 
         $sujet= Sujet::find($id);
 
-        if($sujet->STATUT_ENCADRANT !='1')
+        if($sujet->STATUT_ENCADRANT !='1' || $sujet->ENCADRANT != $encadrant->ID_ENSEIGNANT)
         {
-            $sujet->STATUT_ENCADRANT='2';
-            $sujet->save();
-            return response()->json([$sujet],200);
+            return response()->json(['message'=>'You can\'t refuse request'],401 );
         }
-        return response()->json(['message'=>'You can\'t refuse request'],401 );
+
+        $sujet->STATUT_ENCADRANT='2';
+        $sujet->save();
+        return response()->json([$sujet],200);
 
     }
 }

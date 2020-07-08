@@ -16,6 +16,7 @@ class CreateEtudiantsTable extends Migration
         Schema::create('etudiants', function (Blueprint $table) {
 
             $table->string('CIN_PASSEPORT',50)->primary();
+            $table->string('NUM_INSCRIPTION',50)->unique();
             $table->string('NOM');
             $table->string('PRENOM');
             $table->date('DATE_NAISSAINCE');

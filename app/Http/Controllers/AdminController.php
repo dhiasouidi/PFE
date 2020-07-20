@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
+
 
 class AdminController extends Controller
 {
@@ -22,9 +27,39 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $infos)
     {
-        //
+        $rules= [
+            'PSEUDO' =>'bail|unique:App\Admin,PSEUDO|required|string|min:5',
+            'NOM' =>'bail|required|string|min:2',
+            'PRENOM' =>'bail|required|string|min:2',
+            'FONCTION' =>'bail|required|string|min:2',
+        ];
+
+        $validator = Validator::make($infos->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+            $admin=Admin::create([
+                'PSEUDO' => request('PSEUDO'),
+                'NOM' => request('NOM'),
+                'PRENOM' => request('PRENOM'),
+                'FONCTION' => request('PRENOM'),
+
+            ]);
+
+            $user = User::create([
+                'login' => request('PSEUDO'),
+                'password' => Hash::make('admin'),
+                'email' => request('EMAIL'),
+                'userable_id' => request('PSEUDO'),
+                'userable_type' => 'admin',
+            ]);
+
+            return response()->json([$admin,$user],201);
     }
 
     /**

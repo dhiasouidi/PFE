@@ -52,4 +52,14 @@ class DepotController extends Controller
 
         return response()->json(['message' => 'Rapport déposé'],200);
     }
+
+    public function Upload(Request $request)
+    {
+        $rapport = $request->file('rapport');
+        $rapportname = time().'.'. $rapport->extension();
+        $rapport->move(public_path('rapports'),$rapportname);
+        return response()->json(['message' => 'Rapport déposé', 'rapport' =>$rapportname],200);
+
+    }
+
 }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Admin;
+use App\Enseignant;
+use App\Etudiant;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +19,21 @@ class LoginController extends Controller
 
                 $authenticated_user = Auth::user();
                 $user = User::find($authenticated_user->login);
+
+                switch($user->userable_type)
+                {
+                    case 'etudiant' :
+                        $userinfo = Etudiant::find($user->login);
+                        break;
+                    case 'enseignant':
+                        $userinfo = Enseignant::find($user->login);
+                        break;
+                    case 'admin':
+                        $userinfo = Admin::find($user->login);
+                        break;
+                }
                 $accesstoken = $user->createToken('access_token')->accessToken;
-                return response(['message'=>'success','user'=>$authenticated_user , 'access_token'=>$accesstoken]);
+                return response(['user'=>$authenticated_user ,'userinfo'=>$userinfo, 'access_token'=>$accesstoken]);
             }
         }catch(\Exception $exception){
             return response([

@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SeanceEncadrement extends Model
 {
+    protected $fillable = [
+        'DATE_SEANCE',
+        'SUJET_ID',
+    ];
     public function taches()
     {
         return $this->hasMany('App\Tache');

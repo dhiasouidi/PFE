@@ -21,8 +21,11 @@ class CreateStagesTable extends Migration
             $table->string('TEL_STAGE')->nullable();
             $table->string('FAX_STAGE')->nullable();
             $table->string('EMAIL_STAGE')->nullable();
+            $table->string('ADRESSE')->nullable();
+            $table->string('DESCRIPTION')->nullable();
 
             $table->string('ENCADRANT_STAGE')->nullable();
+            $table->string('ENCADRANT_EMAIL')->nullable();
 
             $table->string('DATE_DEBUT')->nullable();
             $table->string('DATE_FIN')->nullable();

@@ -258,7 +258,7 @@
 
 
 
-
+{{ $data->NOM }}
 </form>
 <script type="text/javascript">
 fintranet_memoire_mastereview.Init();

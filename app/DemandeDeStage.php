@@ -14,8 +14,8 @@ class DemandeDeStage extends Model
         'TYPE_DEMANDE',
         'ETAT_DEMANDE',
          'ETUDIANT_DEMANDE',
-         'STAGE_ID'];
-
+         'STAGE_ID',
+        'NUM_INSCRIPTION'];
 
     public function etudiant()
     {

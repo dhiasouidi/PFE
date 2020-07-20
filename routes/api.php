@@ -1,7 +1,9 @@
 <?php
 
 use App\Enseignant;
+use App\Http\Controllers\DepotController;
 use App\Http\Controllers\EnseignantController;
+use App\Http\Controllers\SujetController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,7 @@ Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
     Route::post('/forgot','ForgotController@forgot');
     Route::get('/pdf','PDFController@print');
+    Route::get('/demande/print/{id}','PDFController@print');
 
     Route::get('/download/rapport/{etudiant}','DepotController@DownloadRapport');
     //Loggedin Users
@@ -32,6 +35,9 @@ Route::prefix('/')->group(function(){
         //Infos User
         Route::put('/changemdp','UserController@changemdp');
         Route::put('/updateinfos','EtudiantController@update');
+
+        Route::post('/adminsave','AdminController@create');
+
 
 
         //Demande de Stage CRUD
@@ -60,7 +66,8 @@ Route::prefix('/')->group(function(){
         Route::put('/demande/update/{id}','DemandeDeStageController@update');
         Route::delete('/demande/delete/{id}','DemandeDeStageController@destroy');
         //ADMIN
-        Route::post('/demande/affecter/{id}','DemandeDeStageController@affecter');
+        Route::put('demande/affecter/{id}','DemandeDeStageController@affecter');
+
 
         Route::get('/getstageetudiant','EtudiantController@stage');
         Route::get('/getetudiantstage/{id}','StageController@etudiant');
@@ -87,7 +94,11 @@ Route::prefix('/')->group(function(){
 
         Route::get('/monsujet','EtudiantController@sujet');
 
-        Route::post('/upload/rapport','DepotController@UploadRapport');
+        Route::post('/seancesave', 'SujetController@planifier');
+        Route::get('/seanceget', 'SujetController@getseances');
+
+        // Route::post('/upload/rapport','DepotController@UploadRapport');
+        Route::post('/upload/rapport','DepotController@upload');
 
 
 

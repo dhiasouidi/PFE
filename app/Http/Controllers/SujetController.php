@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enseignant;
 use App\Etudiant;
+use App\SeanceEncadrement;
 use App\Sujet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -216,7 +217,7 @@ class SujetController extends Controller
     {
         $authenticated_user = Auth::user();
         $user = User::find($authenticated_user->login);
-        $encadrant = Enseignant::find($user->login);
+        $encadrant = Enseignant::find($user->userable_id);
 
         $sujet= Sujet::find($id);
         if(is_null($sujet))
@@ -256,5 +257,45 @@ class SujetController extends Controller
         $sujet->save();
         return response()->json([$sujet],200);
 
+    }
+    public function planifier(Request $infos )
+    {
+
+        $rules= [
+            'DATE_SEANCE' =>'required|date',
+        ];
+
+        $validator = Validator::make($infos->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+        $seance=SeanceEncadrement::create([
+            'DATE_SEANCE' => request('DATE_SEANCE'),
+            'SUJET_ID' => request('SUJET_ID'),
+        ]);
+
+        return response()->json($seance,201);
+    }
+
+    public function getseances(Request $infos )
+    {
+
+        $rules= [
+            'month' =>'required|string',
+            'year' =>'required|string',
+        ];
+
+        $validator = Validator::make($infos->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+        $seance=SeanceEncadrement::whereYear('DATE_SEANCE', request('year'))
+                                    ->whereMonth('DATE_SEANCE', request('month'))->get();;
+
+        return response()->json($seance,200);
     }
 }

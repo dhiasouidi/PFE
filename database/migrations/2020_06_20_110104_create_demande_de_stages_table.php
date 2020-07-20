@@ -22,6 +22,7 @@ class CreateDemandeDeStagesTable extends Migration
             $table->string('TYPE_DEMANDE');
             $table->string('ETAT_DEMANDE')->default('NA');
             $table->string('ETUDIANT_DEMANDE');
+            $table->string('NUM_INSCRIPTION');
 
             $table->foreign('ETUDIANT_DEMANDE')->references('CIN_PASSEPORT')->on('etudiants')->onDelete('cascade');
 

@@ -149,21 +149,21 @@ class EnseignantController extends Controller
             return response()->json(["message" => 'Record not found'],404);
         }
 
-        $enseignant = Enseignant::find($authenticated_enseignat->login);
+        $enseignant = Enseignant::find($authenticated_enseignat->userable_id);
 
         return $enseignant->sujets;
     }
 
     public function demandes()
     {
-        $authenticated_enseignat = Auth::user();
+        $authenticated_enseignant = Auth::user();
 
-        if($authenticated_enseignat->userable_type != 'enseignant')
+        if($authenticated_enseignant->userable_type != 'enseignant')
         {
             return response()->json(["message" => 'Record not found'],404);
         }
 
-        $encadrant = Enseignant::find($authenticated_enseignat->login);
+        $encadrant = Enseignant::find($authenticated_enseignant->userable_id);
         return $encadrant->demandes;
     }
 }

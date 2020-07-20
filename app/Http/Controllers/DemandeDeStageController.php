@@ -50,7 +50,6 @@ class DemandeDeStageController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-
         $type_etudiant= $etudiant->etudiant_type;
 
         switch ($type_etudiant) {
@@ -66,6 +65,7 @@ class DemandeDeStageController extends Controller
         }
 
             $demande_stage=DemandeDeStage::create([
+                'NUM_INSCRIPTION' =>$etudiant->NUM_INSCRIPTION,
                 'ETUDIANT_DEMANDE' => $etudiant->CIN_PASSEPORT,
                 'ORGANISME_DEMANDE' => request('ORGANISME_DEMANDE'),
                 'TYPE_DEMANDE' =>  $TYPE_DEMANDE,

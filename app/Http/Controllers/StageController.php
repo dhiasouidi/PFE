@@ -82,6 +82,18 @@ class StageController extends Controller
         $stage->update($request->all());
         return response()->json($stage,200);
     }
+    public function updatebyid(Request $request,$id)
+    {
+
+
+        $stage = Stage::find($id);
+        if(is_null($stage))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $stage->update($request->all());
+        return response()->json($stage,200);
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -102,5 +114,19 @@ class StageController extends Controller
             return response()->json(["message" => 'Record not found'],404);
         }
         return $stage->etudiant;
+    }
+
+    public function desaffecter($id)
+    {
+        $stage = Stage::find($id);
+        $etudiant= Etudiant::find($stage->ETUDIANT_ID);
+
+        $etudiant->AFFECTATION= 'NA';
+
+
+        $stage->delete();
+        $etudiant->save();
+        return response()->json(['message'=>'Désaffecté avec succés'],200);
+
     }
 }

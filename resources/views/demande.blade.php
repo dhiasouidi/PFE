@@ -67,15 +67,15 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p4 ft2">A l’attention de (Madame, Monsieur) : Le Directeur (La Directrice)</P>
 <P class="p5 ft3">Entreprise ou organisme d’accueil :  {{$data['demande']->ORGANISME_DEMANDE}}</P>
 <P class="p6 ft4">Objet : Demande de Stage</P>
-<P class="p7 ft3">Nom et Prénom de l’étudiant (e) :    {{$data['etudiant']->NOM}}</P>
+<P class="p7 ft3">Nom et Prénom de l’étudiant (e) :    {{$data['etudiant']->NOM.$data['etudiant']->PRENOM}}</P>
 <P class="p8 ft3">CIN :  {{$data['etudiant']->CIN_PASSEPORT}}</P>
-<P class="p9 ft3">Licence :   {{$data['etudiant']->DIPLOME}}</P>
+<P class="p9 ft3">Diplome :   {{$data['etudiant']->DIPLOME}}</P>
 <P class="p10 ft5">Madame, Monsieur,</P>
 <P class="p11 ft5">Afin de pouvoir confier à nos étudiants une formation pratique et une meilleure préparation à la vie active, il leur est demandé d’effectuer <SPAN class="ft6">​</SPAN><SPAN class="ft7">un stage obligatoire de trois mois et ce, du 01 février 2020 au 30 avril 2020.</SPAN> Ce stage constitue pour nos étudiants un complément de formation d’une grande importance. Il permettra par ailleurs à votre établissement de bénéficier des connaissances pratiques et théoriques acquises par l’étudiant (e) tout au long de sa formation à l’ISG de Tunis.</P>
 <P class="p12 ft5">Nous réitérons nos remerciements et nous vous prions de bien vouloir accueillir l’étudiant(e) nommé(e) <NOBR>ci-dessus</NOBR> pour un stage au sein de votre établissement.</P>
 <P class="p5 ft5">Dans l’attente, veuillez agréer Monsieur le directeur (Madame la directrice), mes meilleures salutations.</P>
 <P class="p13 ft8">Tunis, le {{$data['demande']->created_at->format('d/m/Y')}}</P>
-<P class="p14 ft11">NB : Pour tout complément d‘information sur la formation à l’ISG de Tunis, prière contacter<SPAN class="ft9">​</SPAN><SPAN class="ft10">la direction des stages au +21671588514 Poste 240.</SPAN></P>
+<img src="imgs/sign.png" style="height: 60px ; width:200px ; margin-left:60% ; margin-bottom:30PX">
 </DIV>
 </BODY>
 </HTML>

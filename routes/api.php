@@ -27,7 +27,11 @@ Route::prefix('/')->group(function(){
     Route::post('/login','api\LoginController@login');
     Route::post('/forgot','ForgotController@forgot');
     Route::get('/pdf','PDFController@print');
-    Route::get('/demande/print/{id}','PDFController@print');
+    Route::get('/demande/print/{id}','PDFController@printdemande');
+    Route::get('/lettre/print/{id}','PDFController@printlettre');
+    Route::get('/journal/print/{id}','PDFController@printjournal');
+    Route::get('/convention/print/{id}','PDFController@printconvention');
+
 
     Route::get('/download/rapport/{etudiant}','DepotController@DownloadRapport');
     //Loggedin Users
@@ -44,7 +48,7 @@ Route::prefix('/')->group(function(){
         Route::get('/etudiantall','EtudiantController@index');
         Route::get('/etudiant/{id}','EtudiantController@show');
         Route::post('/etudiantsave','EtudiantController@create');
-        Route::put('/etudiant/update/{id}','EtudiantController@update');
+        Route::post('/etudiant/update/{id}','EtudiantController@updatebyid');
         Route::get('/currentetudiant','EtudiantController@currentetudiant');
         Route::get('/getbinomes','EtudiantController@getbinomes');
 
@@ -67,12 +71,14 @@ Route::prefix('/')->group(function(){
         Route::delete('/demande/delete/{id}','DemandeDeStageController@destroy');
         //ADMIN
         Route::put('demande/affecter/{id}','DemandeDeStageController@affecter');
+        Route::put('stage/desaffecter/{id}','StageController@desaffecter');
 
 
         Route::get('/getstageetudiant','EtudiantController@stage');
         Route::get('/getetudiantstage/{id}','StageController@etudiant');
         Route::get('/stage/{id}','StageController@show');
         Route::post('/stage/complete','StageController@update');
+        Route::post('/stage/modifier/{id}','StageController@updatebyid');
 
         Route::get('/stagesall','StageController@index');
 

@@ -120,14 +120,14 @@ class EtudiantController extends Controller
      * @param  \App\Etudiant  $etudiant
      * @return \Illuminate\Http\Response
      */
-    public function show(Etudiant $id)
+    public function show($id)
     {
         $etudiant = Etudiant::find($id);
         if(is_null($etudiant))
         {
             return response()->json(["message" => 'Record not found'],404);
         }
-        return response()->json(Etudiant::find($id));
+        return response()->json($etudiant);
     }
 
     /**
@@ -170,6 +170,37 @@ class EtudiantController extends Controller
 
 
         return response()->json($etudiant,200);
+    }
+
+    public function updatebyid(Request $request, $id)
+    {
+
+        $etudiant =Etudiant::find($id);
+
+        $rules= [
+            'NOM' => 'string|min:2|max:255',
+            'PRENOM' => 'string|min:2|max:255',
+            'DATE_NAISSAINCE' => 'date',
+            'TELEPHONE' => 'string|min:2|max:255',
+            'SKYPE' => 'string|min:2|max:255',
+            'LINKEDIN' => 'string|min:2|max:255',
+            'DIPLOME' => 'string|min:2|max:255',
+            'SPECIALITE' => 'string|min:2|max:255',
+            'CYCLE' => 'string|max:255',
+            'NIVEAU' => 'string|max:255',
+                           ];
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+        $etudiant->update($request->all());
+        return response()->json($etudiant,200);
+
+
     }
 
     /**

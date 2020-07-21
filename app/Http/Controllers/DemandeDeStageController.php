@@ -21,7 +21,7 @@ class DemandeDeStageController extends Controller
      */
     public function index()
     {
-        return response()->json(DemandeDeStage::get(),200);
+        return response()->json(DemandeDeStage::where('ETAT_DEMANDE','NA')->get(),200);
     }
 
     /**

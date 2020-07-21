@@ -29,8 +29,6 @@ class EnseignantController extends Controller
     public function create(Request $infos)
     {
         $rules= [
-            'ID_ENSEIGNANT' =>'bail|unique:App\Enseignant,ID_ENSEIGNANT|required|string|min:5',
-
             'NOM' =>'bail|required|string|min:2',
             'PRENOM' =>'bail|required|string|min:2',
             'SPECIALITE' =>'bail|required|string|min:2',
@@ -49,7 +47,7 @@ class EnseignantController extends Controller
         }
 
             $enseignant=Enseignant::create([
-                'ID_ENSEIGNANT' => request('ID_ENSEIGNANT'),
+                'ID_ENSEIGNANT' => request('NOM').request('PRENOM').'ISGT',
                 'NOM' => request('NOM'),
                 'PRENOM' => request('PRENOM'),
                 'SPECIALITE' => request('SPECIALITE'),
@@ -64,7 +62,7 @@ class EnseignantController extends Controller
                 'login' => request('NOM').request('PRENOM').'ISGT',
                 'password' => Hash::make('admin'),
                 'email' => request('EMAIL'),
-                'userable_id' => request('ID_ENSEIGNANT'),
+                'userable_id' => request('NOM').request('PRENOM').'ISGT',
                 'userable_type' => 'enseignant',
             ]);
 
@@ -85,7 +83,7 @@ class EnseignantController extends Controller
      * @param  \App\Enseignant  $enseignant
      * @return \Illuminate\Http\Response
      */
-    public function show(Enseignant $id)
+    public function show( $id)
     {
         $enseignant = Enseignant::find($id);
         if(is_null($enseignant))
@@ -117,6 +115,7 @@ class EnseignantController extends Controller
         {
             return response()->json(["message" => 'Record not found'],404);
         }
+
         $enseignant->update($request->all());
         return response()->json($enseignant,200);
     }

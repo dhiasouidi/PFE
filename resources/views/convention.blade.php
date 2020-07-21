@@ -100,7 +100,7 @@ body {margin-top: 0px;margin-left: 0px;}
 <P class="p3 ft0">Institut Supérieur de Gestion</P>
 <P class="p4 ft1">CONVENTION DE STAGE</P>
 <P class="p5 ft1"><NOBR>2020-2021</NOBR></P>
-<P class="p6 ft4"><SPAN class="ft2">Nom et Prénom de l’étudiant</SPAN>: {{$data->NOM.' '.$data->PRENOM}}</P>
+<P class="p6 ft4"><SPAN class="ft2">Nom et Prénom de l’étudiant</SPAN>: {{$data['etudiant']->NOM.' '.$data['etudiant']->PRENOM}}</P>
 <P class="p7 ft2">LICENCE FONDAMENTALE INFORMATIQUE DE GESTION</P>
 <P class="p8 ft4"><SPAN class="ft2">CIN</SPAN>: ……………………………………………</P>
 <P class="p9 ft4"><SPAN class="ft2">N° d’inscription</SPAN>: …………………………………………..</P>

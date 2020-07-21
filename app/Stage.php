@@ -15,9 +15,14 @@ class Stage extends Model
         'FAX_STAGE',
         'EMAIL_STAGE',
         'ENCADRANT_STAGE',
+        'ENCADRANT_EMAIL',
         'DATE_DEBUT',
         'DATE_FIN',
-        'ETUDIANT_ID'];
+        'ETUDIANT_ID',
+        'DESCRIPTION',
+        'ADRESSE',
+        ''
+    ];
 
 
     public function etudiant()

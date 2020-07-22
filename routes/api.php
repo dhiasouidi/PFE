@@ -37,10 +37,27 @@ Route::prefix('/')->group(function(){
     //Loggedin Users
     Route::group(['middleware' => 'auth:api'], function () {
         //Infos User
+        Route::post('/deposer/rapport','DepotController@UploadRapport');
+
         Route::put('/changemdp','UserController@changemdp');
         Route::put('/updateinfos','EtudiantController@update');
+        Route::put('/updateadmin','AdminController@update');
+
+        Route::post('password/email', 'ForgotPasswordController@forgot');
+        Route::post('password/reset', 'ForgotPasswordController@reset');
+
 
         Route::post('/adminsave','AdminController@create');
+        Route::get('/currentadmin','AdminController@currentadmin');
+
+        Route::get('/reclamation/{id}','ReclamationController@show');
+        Route::get('/reclamationsall','ReclamationController@index');
+        Route::post('/reclamationsave','ReclamationController@create');
+
+        Route::get('/soutenancesall','SoutenanceController@index');
+        Route::get('/soutenance/{id}','SoutenanceController@show');
+        Route::post('/soutenance/modifier/{id}','SoutenanceController@update');
+
 
 
 
@@ -97,6 +114,7 @@ Route::prefix('/')->group(function(){
         Route::get('/sujet/{id}','SujetController@show');
         Route::get('/messujetsenc','EnseignantController@sujets');
         Route::get('/mesdemandesenc','EnseignantController@demandes');
+        Route::post('/sujet/modifier/{id}','SujetController@updatebyid');
 
         Route::get('/monsujet','EtudiantController@sujet');
 

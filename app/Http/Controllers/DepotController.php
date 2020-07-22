@@ -49,7 +49,6 @@ class DepotController extends Controller
         $filename = $nom.'_'.$prenom.'.pdf';
         $path = $request->file('rapport')->move(public_path("/rapports/"),$filename);
 
-
         return response()->json(['message' => 'Rapport déposé'],200);
     }
 

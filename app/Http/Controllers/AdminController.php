@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 
 
@@ -102,9 +104,35 @@ class AdminController extends Controller
      * @param  \App\Admin  $admin
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Admin $admin)
+
+    public function currentadmin()
     {
-        //
+        $authenticated_user = Auth::user();
+        $user = User::find($authenticated_user->login);
+        $admin = Admin::find($user->login);
+        return $admin;
+    }
+    public function update(Request $request)
+    {
+
+        $admin = $this->currentadmin();
+
+        $rules= [
+            'NOM' => 'string|min:2|max:255',
+            'PRENOM' => 'string|min:2|max:255',
+                            ];
+
+        $validator = Validator::make($request->all(),$rules);
+
+        if($validator->fails())
+        {
+            return response()->json($validator->errors(),400);
+        }
+
+        $admin->update($request->all());
+        return response()->json($admin,200);
+
+
     }
 
     /**

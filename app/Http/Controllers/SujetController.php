@@ -109,7 +109,18 @@ class SujetController extends Controller
         }
         return response()->json(Sujet::find($id));
     }
+    public function updatebyid(Request $request,$id)
+    {
 
+
+        $sujet = Sujet::find($id);
+        if(is_null($sujet))
+        {
+            return response()->json(["message" => 'Record not found'],404);
+        }
+        $sujet->update($request->all());
+        return response()->json($sujet,200);
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -15,6 +15,8 @@ class CreateReclamationsTable extends Migration
     {
         Schema::create('reclamations', function (Blueprint $table) {
             $table->id();
+            $table->string('OBJET');
+            $table->string('CORPS');
             $table->timestamps();
         });
     }
